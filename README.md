@@ -2,6 +2,14 @@
 
 A Spigot/Paper towns plugin for **Minecraft 1.21.11** with chunk claims, town roles, bank/upkeep, spawn management, GUI menus, and optional PlaceholderAPI/DecentHolograms/Vault integration.
 
+## Links
+https://github.com/Brookylala/OminousChestLock - My version of cev-api OminousChestLock required for raiding
+
+https://github.com/Brookylala/ozanarchy-economy - Economy Usage (Either this or Vault)
+
+https://github.com/DecentSoftware-eu/DecentHolograms - For use with Town Holograms 
+
+
 ## Features
 
 - Town lifecycle: create, rename, set mayor, leave, abandon
