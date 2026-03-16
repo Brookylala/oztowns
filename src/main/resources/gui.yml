@@ -1,0 +1,183 @@
+# This sets the main gui menu for town commands, as well as the bank and members sub-menus.
+
+#Set main gui for town commands
+title: "&8OzTowns Menu"
+size: 27
+filler:
+  fill: true
+  material: "GRAY_STAINED_GLASS_PANE"
+  name: " "
+items:
+  help:
+    slot: 10
+    material: "PLAYER_HEAD"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzcyNWRhODJhYTBhZGU1ZDUyYmQyMDI0ZjRiYzFkMDE5ZmMwMzBlOWVjNWUwZWMxNThjN2Y5YTZhYTBjNDNiYSJ9fX0="
+    name: "&e&lHelp"
+    lore:
+      - "&7Click to view all"
+      - "&7available commands."
+    command: "town help"
+  spawn:
+    slot: 11
+    material: "PLAYER_HEAD"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjUwMjE2NTk3ZjE2YmNkYzIyZjEwYTNjYzIyOTljYTg4NGM1N2U0Njg1MGZiOGRlZjAxODk1NjYyZDM5MDQwNCJ9fX0="
+    name: "&a&lTown Spawn"
+    lore:
+      - "&7Click to teleport"
+      - "&7to your town spawn."
+    command: "town spawn"
+  claim:
+    slot: 12
+    material: "PLAYER_HEAD"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGRjMGE0YmU2NjhjZWRjMzgxYjc1NmE1NzRiOWVkZGQ4MjM1OGFjYmY4ZjM1ZWMwOGMxODc4ZDNkNzI4YzA4OSJ9fX0="
+    name: "&6&lClaim Land"
+    lore:
+      - "&7Click to claim the"
+      - "&7chunk you are standing in."
+    command: "town claim"
+  unclaim:
+    slot: 13
+    material: "PLAYER_HEAD"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2FkNGE3NGY5MjVkMTRjM2E2OGM2YjFkOTllNjQ0OTUzZTlkM2ZkMjJiMTA4ZGVmNjFmZWIyZWM0MGU4ZmQyZSJ9fX0="
+    name: "&c&lUnclaim Land"
+    lore:
+      - "&7Click to unclaim the"
+      - "&7chunk you are standing in."
+    command: "town unclaim"
+  bank:
+    slot: 14
+    material: "PLAYER_HEAD"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDRjMDAxNjQyMzhkOGFkOTlhZmFkNzkwYzMwNTBmZjllZmY0MTBlMmQ0YTNmZTg1NjAwMzg5ZGNiODE4YTg0OSJ9fX0="
+    name: "&6&lTown Bank"
+    lore:
+      - "&7Click to view"
+      - "&7town bank commands."
+    command: "townbank"
+  members:
+    slot: 15
+    material: "PLAYER_HEAD"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjliOTU3ODgyNTA0OGQyZTU0NWM4Y2M4MDQ5NWFjYzJjZGNmOTVlMzY2MjVmNmI1N2FiMTllMWUyYThiOWRhOCJ9fX0="
+    name: "&b&lMembers"
+    lore:
+      - "&7Click to see members"
+    command: "town members"
+  visualizer:
+    slot: 16
+    material: "PLAYER_HEAD"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2M5MTY0M2E2OTNmYWIxY2JjODJkYWU5YzA2OGIyOGMwZjUwYjAwZWQxMmFkMGExY2JhNTRjYmJiZTk0MzNmOSJ9fX0="
+    name: "&d&lChunk Visualizer"
+    lore:
+      - "&7Click to toggle"
+      - "&7chunk visualizer."
+    command: "town visualizer"
+
+#Set banking gui for town bank commands
+bank_gui:
+  title: "&8Town Bank"
+  size: 27
+  filler:
+    fill: true
+    material: "BLACK_STAINED_GLASS_PANE"
+    name: " "
+  items:
+    deposit:
+      slot: 11
+      material: "PLAYER_HEAD"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjE4NjVkZTFhNzdkYTg2Zjg0MjNhZjRiYTQ0MTAxMzk3NDI5ZDIwMGJlNDIwNDU2NTEyMTJhNjE1Y2Y3NTRmMiJ9fX0="
+      name: "&a&lDeposit"
+      lore:
+        - "&7Click to deposit money"
+        - "&7into the town bank."
+      command: "townbank deposit"
+    withdraw:
+      slot: 13
+      material: "PLAYER_HEAD"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDQ2NzUxNThjMDc2N2VlNTA4YzUyZDUyNDI2Y2VmM2EyYzJiMjliN2U0ODdjOTI5NTNhMzgyM2Y1NjFkMDZhZiJ9fX0="
+      name: "&c&lWithdraw"
+      lore:
+        - "&7Click to withdraw money"
+        - "&7from the town bank."
+      command: "townbank withdraw"
+    balance:
+      slot: 15
+      material: "PLAYER_HEAD"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDRjMDAxNjQyMzhkOGFkOTlhZmFkNzkwYzMwNTBmZjllZmY0MTBlMmQ0YTNmZTg1NjAwMzg5ZGNiODE4YTg0OSJ9fX0="
+      name: "&6&lBalance"
+      lore:
+        - "&7Current Balance: &e${balance}"
+        - "&7Current Upkeep: &c${upkeep}"
+      command: "townbank balance"
+
+#Set members gui for town members command
+members_gui:
+  title: "&8Town Members"
+  size: 54
+  status_online: "&aOnline"
+  status_offline: "&cOffline"
+  member_lore:
+    - "&7Role: {role}"
+    - "&7Status: {status}"
+  empty_item:
+    slot: 22
+    material: "BARRIER"
+    name: "&cNo members"
+    lore:
+      - "&7Your town has no members."
+
+# Permission GUI for town members
+permissions_gui:
+  title: "&8Permissions: {player}"
+  size: 27
+  filler:
+    fill: true
+    material: "GRAY_STAINED_GLASS_PANE"
+    name: " "
+  items:
+    can_claim:
+      slot: 10
+      material: "DIAMOND_SHOVEL"
+      name: "&6&lClaiming"
+      lore:
+        - "&7Allows member to claim chunks."
+        - "&7Status: {status}"
+    can_unclaim:
+      slot: 11
+      material: "IRON_SHOVEL"
+      name: "&c&lUnclaiming"
+      lore:
+        - "&7Allows member to unclaim chunks."
+        - "&7Status: {status}"
+    can_withdraw:
+      slot: 12
+      material: "GOLD_INGOT"
+      name: "&e&lWithdrawing"
+      lore:
+        - "&7Allows member to withdraw money."
+        - "&7Status: {status}"
+    can_invite:
+      slot: 13
+      material: "PAPER"
+      name: "&b&lInviting"
+      lore:
+        - "&7Allows member to invite players."
+        - "&7Status: {status}"
+    can_build:
+      slot: 14
+      material: "GRASS_BLOCK"
+      name: "&2&lBuilding"
+      lore:
+        - "&7Allows member to build/break."
+        - "&7Status: {status}"
+    can_interact:
+      slot: 15
+      material: "LEVER"
+      name: "&f&lInteraction"
+      lore:
+        - "&7Allows member to interact."
+        - "&7Status: {status}"
+  back_button:
+    slot: 18
+    material: "ARROW"
+    name: "&cBack to Members"
+    lore:
+      - "&7Return to the members list."

@@ -1,0 +1,20 @@
+# Hologram integration settings for DecentHolograms
+holograms:
+  enabled: true
+
+  # Prefix for all hologram IDs created by this plugin.
+  id-prefix: "oztowns_"
+
+  # Default vertical offset from target location.
+  y-offset: 2.25
+  
+  # Main lines used for the town spawn hologram created by /town setspawn.
+  # Supported placeholders:
+  # {townname} {town-name} {mayor-name} {mayor}
+  # {town-member-count} {member-count}
+  # {balance}
+  string-lines:
+    - "&a{townname}"
+    - "&eMayor: &f{mayor-name}"
+    - "&eMembers: &f{town-member-count}"
+    - "&eBank: &a${balance}"
