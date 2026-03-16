@@ -39,6 +39,7 @@ spawn-reminder:
 
 # Command to run when a town spawn is set. {player} will be replaced with the mayor's name.
 # {world}, {x}, {y}, {z} will be replaced with the town's spawn location.
+# DONT EDIT IF YOU DONT KNOW WHAT YOU ARE DOING, THIS IS USED TO CREATE A LODESTONE AT THE TOWN SPAWN LOCATION, WHICH IS REQUIRED FOR TOWN RAIDING AND OTHER FEATURES. IF YOU CHANGE THIS, MAKE SURE TO UPDATE THE COMMAND TO CREATE A LODESTONE AT THE TOWN SPAWN LOCATION.
 town-creation-command: "chestlock lock {world} {x} {y} {z} {player}"
 
 # Delay in seconds for the /town spawn command
