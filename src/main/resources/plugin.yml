@@ -1,0 +1,99 @@
+name: OzTowns
+version: '1.1'
+main: net.ozanarchy.towns.TownsPlugin
+api-version: '1.21'
+softdepend: [ozanarchy-economy, Vault, OminousChestLock, PlaceholderAPI, DecentHolograms]
+
+permissions:
+  oztowns.commands:
+    default: true
+    description: 'Allows usage of Towns Commands.'
+  # Sub-permissions for town commands
+  oztowns.commands.create:
+    default: true
+    description: 'Allows the player to create a town.'
+  oztowns.commands.rename:
+    default: true
+    description: 'Allows the Mayor to rename the town.'
+  oztowns.commands.setspawn:
+    default: true
+    description: 'Allows the player to set the town spawn.'
+  oztowns.commands.spawn:
+    default: true
+    description: 'Allows the player to teleport to the town spawn.'
+  oztowns.commands.claim:
+    default: true
+    description: 'Allows the player to claim land.'
+  oztowns.commands.unclaim:
+    default: true
+    description: 'Allows the player to unclaim land.'
+  oztowns.commands.abandon:
+    default: true
+    description: 'Allows the player to abandon their town.'
+  oztowns.commands.add:
+    default: true
+    description: 'Allows the player to add members to the town.'
+  oztowns.commands.remove:
+    default: true
+    description: 'Allows the player to remove members from the town.'
+  oztowns.commands.promote:
+    default: true
+    description: 'Allows the player to promote members in the town.'
+  oztowns.commands.demote:
+    default: true
+    description: 'Allows the player to demote members in the town.'
+  oztowns.commands.leave:
+    default: true
+    description: 'Allows the player to leave their town.'
+  oztowns.commands.members:
+    default: true
+    description: 'Allows the player to view the town members GUI.'
+  oztowns.commands.transfer:
+    default: true
+    description: 'Allows the Mayor to transfer ownership'
+  oztowns.commands.visualizer:
+    default: true
+    description: 'Allows the player to use the chunk visualizer.' 
+
+  # Sub-permissions for bank commands
+  oztowns.commands.bank:
+    default: true
+    description: 'Allows the player to use town bank commands.'
+  oztowns.commands.bank.deposit:
+    default: true
+    description: 'Allows the player to deposit money into the town bank.'
+  oztowns.commands.bank.withdraw:
+    default: true
+    description: 'Allows the player to withdraw money from the town bank.'
+  oztowns.commands.bank.balance:
+    default: true
+    description: 'Allows the player to check the town bank balance.'
+  oztowns.commands.bank.help:
+    default: true
+    description: 'Allows the player to see the town bank command help menu.'
+
+  #Admin permissions
+  oztowns.admin:
+    default: op
+    description: 'Allows usage of Town Admin commands.'
+  oztowns.admin.protectionbypass:
+    default: op
+    description: 'Allows admins to build and destroy blocks in towns.'
+
+commands:
+  towns:
+    aliases: [town, oztowns, towny]
+    usage: '/towns help'
+    description: 'Towns command for OzAnarchy-Towns'
+  townbank:
+    aliases: [tbank, townsbank]
+    usage: '/town bank'
+    description: 'Town Bank command for OzAnarchy-Towns'
+  townadmin:
+    aliases: [tadmin]
+    usage: '/townadmin help'
+    description: 'Town Admin command for OzAnarchy-Towns'
+  tm:
+    usage: '/tm [msg]'
+    description: 'Town messages command for OzAnarchy-Towns'
+

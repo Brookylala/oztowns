@@ -1,0 +1,207 @@
+# message Prefix (Server name) leave a space after the prefix
+prefix: '&f&l[&c&lOz&4&lTowns&f&l] '
+
+# Main help pages (/towns help [1-2])
+help:
+  "1":
+    - "&f/towns help [1-2] &7- &aView all town commands."
+    - "&f/towns commands [1-2] &7- &aAlias for /towns help."
+    - "&f/towns create [townName] &7- &aCreate a new town."
+    - "&f/towns rename [newName] &7- &aRename your town."
+    - "&f/towns abandon confirm &7- &aDelete your town."
+    - "&f/towns add [player] &7- &aAlias for /towns invite."
+    - "&f/towns invite [player] &7- &aInvite a player to your town."
+    - "&f/towns accept &7- &aAccept your pending town invite."
+    - "&f/towns deny &7- &aDeny your pending town invite."
+    - "&f/towns remove [player] &7- &aRemove a player from your town."
+    - "&f/towns promote [player] &7- &aPromote a member to Officer."
+    - "&f/towns demote [player] &7- &aDemote an Officer to Member."
+    - "&f/towns leave &7- &aLeave your current town."
+  "2":
+    - "&f/towns gui &7- &aOpen the main towns menu."
+    - "&f/towns members &7- &aOpen the town members menu."
+    - "&f/towns claim &7- &aClaim the chunk you are standing in."
+    - "&f/towns unclaim &7- &aUnclaim the chunk you are standing in."
+    - "&f/towns setspawn &7- &aSet your town spawn and places the town block."
+    - "&f/towns spawn &7- &aTeleport to your town spawn."
+    - "&f/towns setmayor [player] &7- &aTransfers town ownership."
+    - "&f/towns visualizer &7- &aShow claimed and unclaimed chunk borders."
+    - "&f/towns chunks &7- &aAlias for /towns visualizer."
+    - "&f/townbank gui &7- &aOpen the town bank menu."
+    - "&f/townbank help &7- &aView town bank commands."
+    - "&f/townbank commands &7- &aAlias for /townbank help."
+    - "&f/tm [message] &7- &aMessage in the town member only chat."
+
+# The bank help menu to show commands
+bankhelp:
+  - "&f/townbank help &7- &aShow all town bank commands."
+  - "&f/townbank commands &7- &aAlias for /townbank help."
+  - "&f/townbank gui &7- &aOpen the town bank menu."
+  - "&f/townbank deposit [amount] &7- &aDeposit money into the town bank."
+  - "&f/townbank withdraw [amount] &7- &aWithdraw money from the town bank."
+  - "&f/townbank balance &7- &aView your town bank balance."
+  - "&f/townbank bal &7- &aAlias for /townbank balance."
+
+messages:
+  # General
+  databaseerror: "&cDatabase error. Please contact an admin."
+  nopermission: "&cYou do not have permission to use this command."
+  incorrectusage: "&cIncorrect usage. Use &f/towns help&c."
+  pleasewait: "&c&lPlease wait: &f{seconds}s"
+  playernotfound: "&cCould not find that player."
+
+  # Town existence and roles
+  notown: "&cYou are not in a town."
+  notownexists: "&cThat town does not exist."
+  alreadyinatown: "&cYou are already in a town."
+  notmayor: "&cYou are not the town Mayor."
+  nottownadmin: "&cYou are not a town admin."
+
+  # Town creation and deletion
+  nameblacklisted: "&cThat town name is blacklisted."
+  townnametaken: "&cThat town name is already in use."
+  failedtomaketown: "&cFailed to create the town."
+  towncreated: "&aTown &f{town} &awas created successfully."
+  towncreatenextsteps: "&eNow claim a chunk and use &f/towns setspawn &eto place your town block."
+  towndeleted: "&cYour town has been abandoned."
+  abandonconfirm: "&aYou are about to &c&lDELETE &ayour town. Confirm with &f/towns abandon confirm&a."
+
+  # Claims and chunk control
+  chunkowned: "&cThis chunk is owned by another town."
+  chunknotowned: "&cThis chunk is unclaimed."
+  chunkclaimed: "&aYou successfully claimed this chunk."
+  chunkremoved: "&aYou successfully unclaimed this chunk."
+  disconnectedclaim: "&cYou can only claim chunks adjacent to your existing claims."
+  unclaimfailed: "&cFailed to unclaim this chunk."
+  unclaimableworld: "&cYou cannot claim land in this world."
+
+  # Town spawn and teleport
+  notownspawn: "&cYour town does not have a spawn set."
+  setspawnrestricted: "&cYou can only set your town spawn inside your claimed territory."
+  spawnsetsuccess: "&aTown spawn set successfully."
+  spawnheightrestricted: "&cTown spawn cannot be set above Y=256."
+  spawnskyrestricted: "&cTown spawn must have a clear sky above it."
+  spawnskyobstructed: "&cTown spawn is obstructed. It must have a clear sky to work."
+  spawnremoved: "&cTown spawn was removed because its chunk was unclaimed."
+  setspawnreminder: "&cSet a town spawn with &f/towns setspawn&c. Your town will be deleted in &e{minutes} &cminutes if no spawn is set."
+  alreadyteleporting: "&cYou are already teleporting."
+  teleportcancelled: "&cTeleport canceled because you moved."
+  teleported: "&aTeleported to town spawn."
+  teleportingbar: "&eTeleporting to town spawn..."
+  teleportingbartitle: "&eTeleporting in &f{seconds} &eseconds..."
+
+  # Upkeep
+  upkeepsuccess: "&aTown upkeep of &e${cost} &awas paid."
+  upkeepoverdue: "&cTown upkeep is overdue. Deposit funds to avoid deletion."
+
+  # Member management
+  playeralreadyintown: "&cThat player is already in a town."
+  playernotinyourtown: "&cThat player is not in your town."
+  joinedtown: "&aYou joined the town."
+  lefttown: "&aYou left the town."
+  mayorcantleave: "&cThe Mayor cannot leave the town."
+  leavefailed: "&cFailed to leave the town."
+  addedmember: "&aAdded &f{player} &ato the town."
+  addmemberfailed: "&cFailed to add that player."
+  removedmember: "&aRemoved &f{player} &afrom the town."
+  kickedfromtown: "&cYou were removed from the town."
+  removememberfailed: "&cFailed to remove that player."
+  cantremovemayor: "&cYou cannot remove the Mayor."
+  cantpromote: "&cThat player cannot be promoted."
+  promotedmember: "&aPromoted &f{player} &ato Officer."
+  promotedtarget: "&aYou were promoted to Officer."
+  promotefailed: "&cFailed to promote that player."
+  cantdemote: "&cThat player cannot be demoted."
+  cantdemoteself: "&cYou cannot demote yourself."
+  demotedmember: "&aDemoted &f{player} &ato Member."
+  demotedtarget: "&aYou were demoted to Member."
+  demotefailed: "&cFailed to demote that player."
+  inviteusage: "&cUsage: &f/towns add [player]"
+  invitesent: "&aInvite sent to &f{player}&a. It expires in &e{seconds}s&a."
+  invitereceived: "&e{player} &ainvited you to join &f{town}&a. Expires in &e{seconds}s&a."
+  inviteactions: "&aType &f/towns accept &ato join or &f/towns deny &ato decline."
+  nopendinginvite: "&cYou have no pending town invites."
+  inviteinvalid: "&cThat invite is no longer valid."
+  inviteacceptedrequester: "&f{player} &aaccepted your town invite."
+  inviteacceptedtarget: "&aYou joined town &f{town}&a."
+  invitedeniedrequester: "&f{player} &cdenied your town invite."
+  invitedeniedtarget: "&cYou denied the town invite."
+  inviteexpiredrequester: "&cYour invite to &f{player} &cexpired."
+  inviteexpiredtarget: "&cYour town invite expired."
+  newtownmayor: "&aYou are the new mayor of &7{town}&a."
+  newmayor: "&aYou are now the mayor of this town."
+  mayortransfered: "&aYou have trasfered town ownership of &7{town}&a to &7{player}&a."
+  setmayorfail: "&cFailed to transfer mayor role."
+
+  # Bank
+  invalidamount: "&cInvalid amount."
+  notenough: "&cYou do not have enough money."
+  depositprompt: "&eHow much would you like to deposit?"
+  withdrawprompt: "&eHow much would you like to withdraw?"
+  bankamountpending: "&eFinish your previous bank input or type &fcancel&e."
+  bankamounttimeout: "&cBank input timed out. Please try again."
+  depositwealth: "&aDeposited &e${amount} &ainto the town bank."
+  withdrawwealth: "&aWithdrew &e${amount} &afrom the town bank."
+  bankbalance: "&aTown Bank Balance: &e${balance}&a."
+
+  # Visualizer and particles
+  invalidparticle: "&cInvalid particle configured."
+  visualizerdisabled: "&cChunk visualizer is disabled."
+  visualizerenabled: "&aChunk visualizer enabled for &e{duration} &aseconds."
+
+  # Protection and interaction
+  missinginteractperm: "&cThis area is owned. You cannot interact here."
+  missingcontainerperm: "&cYou do not have permission to access containers in this town."
+  cannotbreaktownlodestone: "&cYou cannot break the town Lodestone."
+
+  # Raid
+  cannotraidowntown: "&cYou cannot lockpick your own town's Lodestone."
+  raidingdisabled: "&cRaiding is currently disabled."
+  raidsuccess: "&aYou lockpicked the town spawn and stole &e${balance} &afrom the town bank."
+  raidsuccessempty: "&aYou lockpicked the town spawn, but the town bank was empty."
+  raidbroadcast: "&c&l{player} &7successfully raided the town of &c&l{town}&7."
+  raidtimer: "&c&lRAID IN PROGRESS! &7Stay alive for &c{seconds} &7seconds to complete the raid."
+  raidfailed: "&cRaid failed. You died."
+  raidtimerbar: "&c&lRAID IN PROGRESS: &f{seconds}s &7remaining"
+  raiddefenderbar: "&c&lRAID ALERT: &f{player} &7| &f{seconds}s &7remaining"
+
+  # UI text
+  helpmenu: "&e&lHelp Menu"
+  bankhelpmenu: "&e&lBank Help Menu"
+  townentered: "&f&lEntering &e&l{town}"
+  townleft: "&f&lLeaving &e&l{town}"
+  wilderness: "&a&lWilderness"
+
+# Admin messages
+adminprefix: "&f[&cTownsAdmin&f] "
+adminmessages:
+  help:
+    - "&f/townadmin help &aShows this admin help menu."
+    - "&f/townadmin reload &aReloads the plugin config and messages."
+    - "&f/townadmin delete [town] &aDeletes a town."
+    - "&f/townadmin spawn [town] &aTeleports you to the town spawn."
+    - "&f/townadmin setspawn [town] &aSets the town spawn to your current location."
+    - "&f/townadmin removespawn [town] &aRemoves the town spawn."
+    - "&f/townadmin add [town] [player] &aAdds a player to a town."
+    - "&f/townadmin remove [town] [player] &aRemoves a player from a town."
+    - "&f/townadmin setmayor [town] [player] &aSets a new town Mayor."
+    - "&f/townadmin givelockpick [player] [amount] &aGives a configured raid lockpick."
+  incorrectusage: "&cIncorrect usage. &f/townadmin help"
+  mustbeplayer: "&cOnly players can use that command."
+  reloaded: "&aConfig and messages reloaded."
+  townnotfound: "&cTown not found."
+  playernotfound: "&cPlayer not found."
+  towndeleted: "&aTown &f{town} &ahas been deleted."
+  spawnsuccess: "&aTown spawn set for &f{town}&a."
+  spawnnotfound: "&cThat town does not have a spawn set."
+  spawnremoved: "&aTown spawn removed for &f{town}&a."
+  teleported: "&aTeleported to &f{town}&a spawn."
+  addedmember: "&aAdded &f{player} &ato &f{town}&a."
+  removedmember: "&aRemoved &f{player} &afrom &f{town}&a."
+  alreadyintown: "&cPlayer is already in a town."
+  notintown: "&cPlayer is not in that town."
+  cannotremovemayor: "&cYou cannot remove the Mayor of a town."
+  setmayor: "&aSet &f{player} &aas the new Mayor of &f{town}&a."
+  lockpickgiven: "&aGave &e{amount}x &araid lockpick to &f{player}&a."
+  lockpickreceived: "&aYou received &e{amount}x &araid lockpick."
+
