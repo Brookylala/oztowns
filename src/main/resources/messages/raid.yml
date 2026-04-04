@@ -14,6 +14,8 @@ raid:
     # Placeholder: {balance}
     with-loot: "&aYou lockpicked the town spawn and stole &e${balance} &afrom the town bank."
     empty: "&aYou lockpicked the town spawn, but the town bank was empty."
+    # Placeholder: {amount}
+    bank-cap-overflow: "&eYour town bank cap was reached. Overflow paid to you: &f${amount}"
   fail:
     damage: "&cRaid failed. You took damage."
     death: "&cRaid failed. You died."
@@ -31,5 +33,3 @@ raid:
     # Placeholder: {seconds}
     start: "&6&lCLEANUP RAID: &7This town is decaying. Cleanup completes in &e{seconds}&7s."
     success: "&aCleanup complete. The decaying town was removed."
-
-

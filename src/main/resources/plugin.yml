@@ -48,6 +48,9 @@ permissions:
   oztowns.commands.members:
     default: true
     description: 'Allows the player to view the town members GUI.'
+  oztowns.commands.info:
+    default: true
+    description: 'Allows the player to view town information GUI.'
   oztowns.commands.transfer:
     default: true
     description: 'Allows the Mayor to transfer ownership'
@@ -96,4 +99,3 @@ commands:
   tm:
     usage: '/tm [msg]'
     description: 'Town messages command for OzTowns'
-

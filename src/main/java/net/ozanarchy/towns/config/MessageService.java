@@ -173,6 +173,7 @@ public class MessageService {
                 Map.entry("messages.disconnectedclaim", "town.claim.disconnected"),
                 Map.entry("messages.unclaimableworld", "town.claim.world-blocked"),
                 Map.entry("messages.unclaimfailed", "town.claim.unclaim-failed"),
+                Map.entry("messages.claimcapreached", "town.claim.cap-reached"),
                 Map.entry("messages.spawnsetsuccess", "town.spawn.set-success"),
                 Map.entry("messages.notownspawn", "town.spawn.not-set"),
                 Map.entry("messages.setspawnrestricted", "town.spawn.set-restricted"),

@@ -541,10 +541,39 @@ public class MemberEvents implements Listener {
             }
             economy.remove(p.getUniqueId(), amount, success ->{
                 if(success){
-                    townBankRepository.depositTownMoney(townId, amount);
+                    double acceptedAmount = amount;
+                    if (plugin.getTownTierPerkService() != null) {
+                        double currentBalance = townBankRepository.getTownBalance(townId);
+                        acceptedAmount = plugin.getTownTierPerkService().allowedDepositAmount(townId, currentBalance, amount);
+                    }
+                    if (acceptedAmount <= 0.0) {
+                        economy.add(p.getUniqueId(), amount);
+                        Bukkit.getScheduler().runTask(plugin, () -> {
+                            p.sendMessage(Utils.getColor(prefix + messagesConfig.getString(
+                                    "town.bank.cap-reached",
+                                    "&cYour town bank is at its tier cap and cannot accept more deposits."
+                            )));
+                        });
+                        return;
+                    }
+
+                    townBankRepository.depositTownMoney(townId, acceptedAmount);
                     refreshTownSpawnHologram(townId, p);
+
+                    double overflow = amount - acceptedAmount;
+                    if (overflow > 0.0) {
+                        economy.add(p.getUniqueId(), overflow);
+                    }
+                    double finalAcceptedAmount = acceptedAmount;
+                    double finalOverflow = overflow;
                     Bukkit.getScheduler().runTask(plugin, () -> {
-                        p.sendMessage(Utils.getColor(prefix + messagesConfig.getString("messages.depositwealth").replace("{amount}", String.valueOf(amount))));
+                        p.sendMessage(Utils.getColor(prefix + messagesConfig.getString("messages.depositwealth").replace("{amount}", String.valueOf(finalAcceptedAmount))));
+                        if (finalOverflow > 0.0) {
+                            p.sendMessage(Utils.getColor(prefix + messagesConfig.getString(
+                                    "town.bank.cap-partial",
+                                    "&eTown bank cap reached. Refunded: &f{amount}"
+                            ).replace("{amount}", String.valueOf(finalOverflow))));
+                        }
                     });
                 } else {
                     Bukkit.getScheduler().runTask(plugin, () -> {

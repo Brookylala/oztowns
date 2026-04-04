@@ -25,6 +25,7 @@ import net.ozanarchy.towns.bank.gui.BankGui;
 import net.ozanarchy.towns.town.gui.MainGui;
 import net.ozanarchy.towns.town.gui.MemberPermissionMenu;
 import net.ozanarchy.towns.town.gui.MembersGui;
+import net.ozanarchy.towns.town.gui.TownInfoGui;
 import net.ozanarchy.towns.town.claim.ChunkHandler;
 import net.ozanarchy.towns.util.db.DatabaseHandler;
 import net.ozanarchy.towns.town.permission.PermissionManager;
@@ -32,6 +33,7 @@ import net.ozanarchy.towns.raid.RaidConfigManager;
 import net.ozanarchy.towns.raid.RaidRecipeManager;
 import net.ozanarchy.towns.town.TownNotifier;
 import net.ozanarchy.towns.town.placeholder.TownsPlaceholder;
+import net.ozanarchy.towns.town.tier.TownTierPerkService;
 import net.ozanarchy.towns.town.tier.TownTierService;
 import net.ozanarchy.towns.town.lifecycle.SpawnReminderScheduler;
 import net.ozanarchy.towns.town.hologram.TownHologramOrphanSweepService;
@@ -81,6 +83,7 @@ public final class TownsPlugin extends JavaPlugin {
     private RaidConfigManager raidConfigManager;
     private RaidRecipeManager raidRecipeManager;
     private TownTierService townTierService;
+    private TownTierPerkService townTierPerkService;
     private RaidService raidService;
     private EconomyProvider economy;
     private final ChunkHandler chunkCache = new ChunkHandler();
@@ -104,6 +107,7 @@ public final class TownsPlugin extends JavaPlugin {
 
         DatabaseHandler db = new DatabaseHandler(this);
         townTierService = new TownTierService(this, db);
+        townTierPerkService = new TownTierPerkService(townTierService);
         TownNotifier townNotifier = new TownNotifier(this, db);
         permissionManager = new PermissionManager(this);
         TownEvents townEvents = new TownEvents(db, permissionManager, this, economy, chunkCache, townNotifier);
@@ -113,9 +117,10 @@ public final class TownsPlugin extends JavaPlugin {
         MainGui mainGui = new MainGui(this);
         BankGui bankGui = new BankGui(this);
         MembersGui membersGui = new MembersGui(this, db, permissionManager);
-        registerCommands(db, townEvents, memberEvents, adminEvents, mainGui, bankGui, membersGui);
+        TownInfoGui townInfoGui = new TownInfoGui(this, db);
+        registerCommands(db, townEvents, memberEvents, adminEvents, mainGui, bankGui, membersGui, townInfoGui);
         raidService = new RaidService(this, db, economy, raidConfigManager);
-        registerEvents(db, townEvents, memberEvents, mainGui, bankGui, membersGui);
+        registerEvents(db, townEvents, memberEvents, mainGui, bankGui, membersGui, townInfoGui);
 
         setupDatabase();
         createTables();
@@ -183,8 +188,8 @@ public final class TownsPlugin extends JavaPlugin {
         DebugLogger.debug(this, "Configs loaded: main/gui/messages/holograms/protection/town/upkeep/tiers/raid.");
     }
     private void registerCommands(DatabaseHandler db, TownEvents townEvents, MemberEvents memberEvents, AdminEvents adminEvents,
-                                  MainGui mainGui, BankGui bankGui, MembersGui membersGui) {
-        TownsCommand townsCommand = new TownsCommand(db, townEvents, memberEvents, mainGui, membersGui);
+                                  MainGui mainGui, BankGui bankGui, MembersGui membersGui, TownInfoGui townInfoGui) {
+        TownsCommand townsCommand = new TownsCommand(db, townEvents, memberEvents, mainGui, membersGui, townInfoGui);
         getCommand("towns").setExecutor(townsCommand);
         getCommand("towns").setTabCompleter(townsCommand);
 
@@ -203,7 +208,7 @@ public final class TownsPlugin extends JavaPlugin {
     }
 
     private void registerEvents(DatabaseHandler db, TownEvents townEvents, MemberEvents memberEvents,
-                                MainGui mainGui, BankGui bankGui, MembersGui membersGui) {
+                                MainGui mainGui, BankGui bankGui, MembersGui membersGui, TownInfoGui townInfoGui) {
         getServer().getPluginManager().registerEvents(townEvents, this);
         getServer().getPluginManager().registerEvents(memberEvents, this);
         getServer().getPluginManager().registerEvents(new ProtectionListener(this, db, chunkCache, permissionManager), this);
@@ -214,6 +219,7 @@ public final class TownsPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(mainGui, this);
         getServer().getPluginManager().registerEvents(bankGui, this);
         getServer().getPluginManager().registerEvents(membersGui, this);
+        getServer().getPluginManager().registerEvents(townInfoGui, this);
         getServer().getPluginManager().registerEvents(new MemberPermissionMenu(this, db, permissionManager, null), this);
     }
 
@@ -557,6 +563,10 @@ public final class TownsPlugin extends JavaPlugin {
 
     public TownTierService getTownTierService() {
         return townTierService;
+    }
+
+    public TownTierPerkService getTownTierPerkService() {
+        return townTierPerkService;
     }
 
     @Override

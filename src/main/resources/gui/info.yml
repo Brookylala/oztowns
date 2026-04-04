@@ -1,0 +1,38 @@
+# OzTowns - Town Info GUI
+# Controls /town info and /town info <name> display.
+
+town_info_gui:
+  # Supported placeholders: {town}
+  title: "&8Town Info: {town}"
+  # Inventory size (must be multiple of 9).
+  size: 27
+
+  filler:
+    # If true, fills all empty slots with the filler item.
+    fill: true
+    material: "BLACK_STAINED_GLASS_PANE"
+    name: " "
+
+  items:
+    overview:
+      slot: 11
+      material: "PLAYER_HEAD"
+      # Custom skull texture support works the same as main GUI.
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjliOTU3ODgyNTA0OGQyZTU0NWM4Y2M4MDQ5NWFjYzJjZGNmOTVlMzY2MjVmNmI1N2FiMTllMWUyYThiOWRhOCJ9fX0="
+      name: "&e&l{town}"
+      lore:
+        - "&7Mayor: &f{mayor}"
+        - "&7Members: &f{members}"
+        - "&7Claims: &f{claims}"
+        - "&7Bank: &a${balance}"
+        - "&7Upkeep State: &f{upkeep-state}"
+
+    tier:
+      slot: 15
+      material: "PLAYER_HEAD"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBjYjgwMmM4ODRhNDE2MTViNTY5NmUxYzQ2N2Y2ZWY5ZjczMzI1YWM0OGM4MTNjYzcxNTg2NmJmNDI1NDQ4MSJ9fX0="
+      name: "&b&lTier Progress"
+      lore:
+        - "&7Current Tier: &f{tier-name}"
+        - "&7Progress: &f{tier-progress}&7/&f{tier-required}"
+        - "&7Next Tier: &f{next-tier}"

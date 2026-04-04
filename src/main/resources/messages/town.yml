@@ -61,6 +61,8 @@ town:
     unowned: "&cThis chunk is unclaimed."
     disconnected: "&cYou can only claim chunks adjacent to your existing claims."
     world-blocked: "&cYou cannot claim land in this world."
+    # Placeholder: {max}
+    cap-reached: "&cYour town has reached its claim cap (&f{max}&c). Upgrade your tier or raise the cap in tiers.yml."
     unclaim-failed: "&cFailed to unclaim this chunk."
   spawn:
     not-set: "&cYour town does not have a spawn set."
@@ -116,4 +118,8 @@ town:
     missing-interact-perm: "&cYou do not have permission to interact here."
     missing-container-perm: "&cYou do not have permission to open containers here."
     cannot-break-lodestone: "&cYou cannot break the town Lodestone."
+  bank:
+    cap-reached: "&cYour town bank is at its tier cap and cannot accept more deposits."
+    # Placeholder: {amount}
+    cap-partial: "&eTown bank cap reached. Refunded: &f{amount}"
 

@@ -58,6 +58,8 @@ tier-integration:
 
   progression:
     # Tier progress gained per successful upkeep payment.
+    # Automatic tier upgrades are processed from this progress for ACTIVE towns only.
+    # Progress above a tier threshold carries into the next tier.
     progress-per-successful-payment: 25.0
     # If true, successful payment grants progress only when activity conditions are met.
     require-activity-for-progress: true
@@ -103,4 +105,7 @@ decay:
     remove-after-state: DECAYING
     # Number of decay cycles after remove-after-state before deleting the town.
     remove-after-cycles: 10
+
+
+
 

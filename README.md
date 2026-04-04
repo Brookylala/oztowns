@@ -13,7 +13,7 @@ This branch reflects the 2.0 direction: modular services, split feature configs,
 - Upkeep system: scheduled payments, inactivity checks, state transitions, optional decay cleanup.
 - Tier system: default tier, max tier, progress-driven upgrades, optional downgrades, perk modifiers.
 - Raids 2.0 flow: OzTowns raid lockpick item + GUI minigame entry + state-based raid behavior.
-- GUI menus: main menu, members, member permissions, and bank GUI.
+- GUI menus: main menu, town info, members, member permissions, and bank GUI.
 - Optional integrations: PlaceholderAPI placeholder expansion and DecentHolograms spawn holograms.
 - Multi-file configuration + message packs under dedicated folders.
 
@@ -60,7 +60,7 @@ Current config layout in this branch:
 - `tiers.yml`: tier definitions, progression thresholds, global perk caps, per-tier perk bonuses.
 - `raid-config.yml`: raid entry item, minigame, state behavior, cooldown, payout, recipe.
 - `holograms.yml`: DecentHolograms spawn-hologram rendering settings.
-- `gui/`: GUI layout files (`main.yml`, `members.yml`, `permissions.yml`, `bank.yml`).
+- `gui/`: GUI layout files (`main.yml`, `info.yml`, `members.yml`, `permissions.yml`, `bank.yml`).
 - `messages/`: split message files (`general.yml`, `town.yml`, `raid.yml`, `bank.yml`, `upkeep.yml`, `admin.yml`, `help.yml`).
 
 ## Commands
@@ -78,7 +78,7 @@ Common `/towns` subcommands:
 - `setspawn`, `spawn`
 - `add|invite`, `accept`, `deny`, `remove`
 - `promote`, `demote`, `setmayor`, `leave`
-- `members`, `visualizer|chunks`, `abandon confirm`
+- `members`, `info [town]`, `visualizer|chunks`, `abandon confirm`
 
 Common `/townbank` subcommands:
 
@@ -94,6 +94,7 @@ Common `/townadmin` subcommands:
 Main permission nodes (from `plugin.yml`):
 
 - `oztowns.commands` (+ granular `oztowns.commands.*` nodes)
+- `oztowns.commands.info`
 - `oztowns.commands.bank` (+ `deposit`, `withdraw`, `balance`, `help`)
 - `oztowns.admin`
 - `oztowns.admin.protectionbypass`
@@ -137,6 +138,11 @@ Tier perks currently wired into gameplay:
 - Upkeep cost modifier
 - Bank cap bonus
 - Claim cap bonus (with global base cap + per-tier bonus model)
+
+Tier visibility in GUI:
+
+- Main town GUI includes a glanceable tier item (tier name, current progress/required, upkeep state).
+- `/town info` GUI includes detailed tier panel (current tier, progress, required, next tier).
 
 ## Upkeep
 

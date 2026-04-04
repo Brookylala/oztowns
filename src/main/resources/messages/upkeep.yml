@@ -7,3 +7,9 @@ upkeep:
     # Placeholder: {cost}
     success: "&aTown upkeep of &e${cost} &awas paid."
     overdue: "&cTown upkeep is overdue. Deposit funds to avoid deletion."
+  tier:
+    # Placeholders:
+    # - {from-tier}
+    # - {to-tier}
+    # - {remaining-progress}
+    upgraded: "&aYour town advanced from &f{from-tier} &ato &f{to-tier}&a."

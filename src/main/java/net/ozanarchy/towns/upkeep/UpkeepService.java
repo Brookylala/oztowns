@@ -43,7 +43,7 @@ public class UpkeepService {
         this.databaseHandler = databaseHandler;
         this.upkeepRepository = new UpkeepRepository(plugin);
         this.config = new UpkeepConfigManager();
-        this.calculator = new UpkeepCalculator(config);
+        this.calculator = new UpkeepCalculator(config, plugin.getTownTierPerkService());
         this.activityService = new UpkeepActivityService(config, databaseHandler);
         this.decayService = new UpkeepDecayService(plugin, config, upkeepRepository, databaseHandler, townEvents);
         this.townNotifier = townNotifier;
@@ -84,7 +84,8 @@ public class UpkeepService {
                         townNotifier.notifyTown(townId, plugin.getMessageService()
                                 .format("upkeep.payment.success", Map.of("cost", String.valueOf(due))));
                         refreshTownSpawnHologram(townId, null);
-                        applyTierProgressOnPayment(townId, activity.active());
+                        UpkeepState progressionState = resolveState(unpaidCycles, inactiveMinutes);
+                        applyTierProgressOnPayment(townId, activity.active(), progressionState);
                         DebugLogger.debug(plugin, "Upkeep paid: townId=" + townId + ", amount=" + due);
                     } else {
                         unpaidCycles = upkeepRepository.incrementUnpaidCycles(townId);
@@ -147,14 +148,22 @@ public class UpkeepService {
         return UpkeepState.ACTIVE;
     }
 
-    private void applyTierProgressOnPayment(int townId, boolean active) {
+    private void applyTierProgressOnPayment(int townId, boolean active, UpkeepState progressionState) {
         if (tierService == null || !config.tierIntegrationEnabled()) {
             return;
         }
         if (config.requireActivityForProgress() && !active) {
             return;
         }
+        if (progressionState != UpkeepState.ACTIVE) {
+            return;
+        }
         tierService.increaseTierProgress(townId, config.progressPerSuccessfulPayment());
+        TownTierService.TierUpgradeResult result = tierService.tryUpgradeTownTier(townId, progressionState);
+        if (result.upgraded()) {
+            notifyTierUpgrade(townId, result);
+            refreshTownSpawnHologram(townId, null);
+        }
     }
 
     private void applyTierDecayOnUnpaid(int townId) {
@@ -194,6 +203,21 @@ public class UpkeepService {
         if (config.resetProgressOnDowngrade()) {
             tierService.setTierProgress(townId, 0.0);
         }
+    }
+
+    private void notifyTierUpgrade(int townId, TownTierService.TierUpgradeResult result) {
+        TownTierDefinition oldDefinition = tierService.getDefinition(result.previousTier());
+        TownTierDefinition newDefinition = tierService.getDefinition(result.newTier());
+        String message = plugin.getMessageService().format("upkeep.tier.upgraded", Map.of(
+                "from-tier", oldDefinition.displayName(),
+                "to-tier", newDefinition.displayName(),
+                "remaining-progress", String.valueOf(result.remainingProgress())
+        ));
+        if (message == null || message.isBlank()) {
+            message = "&aTown tier upgraded from &f" + oldDefinition.displayName()
+                    + "&a to &f" + newDefinition.displayName() + "&a.";
+        }
+        townNotifier.notifyTown(townId, message);
     }
 
     private void refreshTownSpawnHologram(int townId, Player contextPlayer) {

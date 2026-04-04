@@ -5,6 +5,7 @@ import net.ozanarchy.towns.town.listener.MemberEvents;
 import net.ozanarchy.towns.town.listener.TownEvents;
 import net.ozanarchy.towns.town.gui.MainGui;
 import net.ozanarchy.towns.town.gui.MembersGui;
+import net.ozanarchy.towns.town.gui.TownInfoGui;
 import net.ozanarchy.towns.util.db.DatabaseHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -26,14 +27,16 @@ public class TownsCommand implements CommandExecutor, TabCompleter {
     private final MemberEvents mEvents;
     private final MainGui gui;
     private final MembersGui membersGui;
+    private final TownInfoGui townInfoGui;
     private final String prefix = Utils.prefix();
 
-    public TownsCommand(DatabaseHandler db, TownEvents events, MemberEvents mEvents, MainGui gui, MembersGui membersGui) {
+    public TownsCommand(DatabaseHandler db, TownEvents events, MemberEvents mEvents, MainGui gui, MembersGui membersGui, TownInfoGui townInfoGui) {
         this.db = db;
         this.events = events;
         this.mEvents = mEvents;
         this.gui = gui;
         this.membersGui = membersGui;
+        this.townInfoGui = townInfoGui;
     }
 
     @Override
@@ -175,6 +178,17 @@ public class TownsCommand implements CommandExecutor, TabCompleter {
                 membersGui.openGui(p);
                 return true;
             }
+            case "info" -> {
+                if (!hasPermission(p, "oztowns.commands.info")) {
+                    return true;
+                }
+                if (args.length >= 2) {
+                    townInfoGui.openForTownName(p, args[1]);
+                    return true;
+                }
+                townInfoGui.openForSelf(p);
+                return true;
+            }
             case "visualizer", "chunks" -> {
                 if (!hasPermission(p, "oztowns.commands.visualizer")) {
                     return true;
@@ -218,7 +232,7 @@ public class TownsCommand implements CommandExecutor, TabCompleter {
             List<String> subCommands = Arrays.asList(
                     "help", "commands", "claim", "create", "abandon", "unclaim",
                     "setspawn", "spawn", "add", "remove", "promote", "demote",
-                    "leave", "members", "visualizer", "chunks", "gui", "accept", "deny", "invite", "setmayor"
+                    "leave", "members", "info", "visualizer", "chunks", "gui", "accept", "deny", "invite", "setmayor"
             );
             return subCommands.stream()
                     .filter(s -> s.startsWith(args[0].toLowerCase()))
@@ -232,6 +246,12 @@ public class TownsCommand implements CommandExecutor, TabCompleter {
                     // Suggest online player names for rank/member actions.
                     return Bukkit.getOnlinePlayers().stream()
                             .map(Player::getName)
+                            .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
+                            .sorted()
+                            .collect(Collectors.toList());
+                }
+                case "info" -> {
+                    return db.getAllTownNames().stream()
                             .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
                             .sorted()
                             .collect(Collectors.toList());

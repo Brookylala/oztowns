@@ -268,7 +268,7 @@ public class TownEvents implements Listener {
      */
     public void claimLand(Player p){
         UUID uuid = p.getUniqueId();
-        double cost = townConfig.getDouble("costs.claim", 5.0);
+        double baseCost = townConfig.getDouble("costs.claim", 5.0);
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             Integer townId = db.getPlayerTownId(uuid);
@@ -288,6 +288,21 @@ public class TownEvents implements Listener {
                 return;
             }
 
+            double cost = baseCost;
+            if (plugin.getTownTierPerkService() != null) {
+                int currentClaims = db.getClaimCount(townId);
+                if (plugin.getTownTierPerkService().hasReachedClaimCap(townId, currentClaims)) {
+                    int cap = plugin.getTownTierPerkService().claimCapForTown(townId);
+                    Bukkit.getScheduler().runTask(plugin, () ->
+                            p.sendMessage(Utils.getColor(prefix + messagesConfig.getString("messages.claimcapreached"))
+                                    .replace("{max}", String.valueOf(cap)))
+                    );
+                    return;
+                }
+                cost = plugin.getTownTierPerkService().applyClaimCostDiscount(townId, baseCost);
+            }
+            double finalCost = cost;
+
             economy.remove(uuid, cost, success -> {
                 if(!success){
                     p.sendMessage(Utils.getColor(prefix + notEnough));
@@ -299,7 +314,7 @@ public class TownEvents implements Listener {
                         Bukkit.getScheduler().runTask(plugin, () -> {
                             p.sendMessage(Utils.getColor(prefix + messagesConfig.getString("messages.chunkowned")));
                         });
-                        economy.add(uuid, cost);
+                        economy.add(uuid, finalCost);
                         return;
                     }
 
@@ -307,7 +322,7 @@ public class TownEvents implements Listener {
                         Bukkit.getScheduler().runTask(plugin, () -> {
                             p.sendMessage(Utils.getColor(prefix + messagesConfig.getString("messages.disconnectedclaim")));
                         });
-                        economy.add(uuid, cost);
+                        economy.add(uuid, finalCost);
                         return;
                     }
                     
@@ -317,7 +332,7 @@ public class TownEvents implements Listener {
                             Bukkit.getScheduler().runTask(plugin, () -> {
                                 p.sendMessage(Utils.getColor(prefix + messagesConfig.getString("messages.unclaimableworld")));
                             });
-                            economy.add(uuid, cost);
+                            economy.add(uuid, finalCost);
                             return;
                         }
                     }

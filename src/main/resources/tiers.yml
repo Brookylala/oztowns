@@ -1,5 +1,5 @@
 # OzTowns 2.0 - Town Tier Configuration
-# Defines tier order, limits, and progress requirements.
+# Defines tier order, limits, progression thresholds, and tier perks.
 
 tiers:
   # Master switch for tier system processing.
@@ -17,6 +17,17 @@ tiers:
   # If false, upgrades can happen without progress checks.
   use-progress: true
 
+  perks:
+    bank-cap:
+      # Base town bank cap before tier bonuses are added.
+      # Set to -1 for unlimited bank capacity.
+      base-cap: -1
+
+    claim-cap:
+      # Base chunk claim cap before tier bonuses are added.
+      # Set to -1 for unlimited claim capacity.
+      base-cap: -1
+
   progression:
     # Reserved setting for future passive decay scheduler usage.
     decay-enabled: false
@@ -32,22 +43,55 @@ tiers:
       upgrade-progress-required: 100.0
       # Reserved: passive progress decay amount per cycle.
       passive-decay-per-cycle: 0.0
+      perks:
+        # Percentage discount on town claim cost.
+        # 0 = no discount, 25 = 25% cheaper claims.
+        claim-cost-discount-percent: 0.0
+        # Multiplier applied to upkeep payment due.
+        # 1.0 = normal upkeep, 0.9 = 10% cheaper upkeep.
+        upkeep-cost-modifier: 1.0
+        # Extra bank capacity added on top of tiers.perks.bank-cap.base-cap.
+        bank-cap-bonus: 0.0
+        # Extra claim slots added on top of tiers.perks.claim-cap.base-cap.
+        claim-cap-bonus: 0
+
     TIER_2:
       display-name: "&aVillage"
       upgrade-progress-required: 200.0
       passive-decay-per-cycle: 0.0
+      perks:
+        claim-cost-discount-percent: 5.0
+        upkeep-cost-modifier: 0.98
+        bank-cap-bonus: 0.0
+        claim-cap-bonus: 0
+
     TIER_3:
       display-name: "&bTown"
       upgrade-progress-required: 300.0
       passive-decay-per-cycle: 0.0
+      perks:
+        claim-cost-discount-percent: 10.0
+        upkeep-cost-modifier: 0.95
+        bank-cap-bonus: 0.0
+        claim-cap-bonus: 0
+
     TIER_4:
       display-name: "&dCity"
       upgrade-progress-required: 400.0
       passive-decay-per-cycle: 0.0
+      perks:
+        claim-cost-discount-percent: 15.0
+        upkeep-cost-modifier: 0.92
+        bank-cap-bonus: 0.0
+        claim-cap-bonus: 0
+
     TIER_5:
       display-name: "&6Metropolis"
       # Top tier usually keeps this at 0 because there is no higher tier.
       upgrade-progress-required: 0.0
       passive-decay-per-cycle: 0.0
-
-
+      perks:
+        claim-cost-discount-percent: 20.0
+        upkeep-cost-modifier: 0.9
+        bank-cap-bonus: 0.0
+        claim-cap-bonus: 0

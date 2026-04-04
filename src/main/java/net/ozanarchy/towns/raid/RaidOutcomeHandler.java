@@ -70,7 +70,26 @@ public class RaidOutcomeHandler {
 
             if (context.raiderTownId() != null) {
                 if (paidOut) {
-                    townBankRepository.depositTownMoney(context.raiderTownId(), payout);
+                    double accepted = payout;
+                    if (plugin.getTownTierPerkService() != null) {
+                        double currentBalance = townBankRepository.getTownBalance(context.raiderTownId());
+                        accepted = plugin.getTownTierPerkService().allowedDepositAmount(context.raiderTownId(), currentBalance, payout);
+                    }
+                    if (accepted > 0.0) {
+                        townBankRepository.depositTownMoney(context.raiderTownId(), accepted);
+                    }
+                    double overflow = payout - accepted;
+                    if (overflow > 0.0) {
+                        double finalOverflow = overflow;
+                        Bukkit.getScheduler().runTask(plugin, () -> {
+                            economy.add(context.raiderUuid(), finalOverflow);
+                            context.raider().sendMessage(Utils.getColor(Utils.prefix() + messagesConfig.getString(
+                                    "raid.success.bank-cap-overflow",
+                                    "&eYour town bank cap was reached. Overflow paid to you: &f${amount}"
+                            ).replace("{amount}", String.valueOf(finalOverflow))));
+                        });
+                    }
+                    refreshTownSpawnHologram(context.raiderTownId(), context.raider());
                 }
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     if (!plugin.getRaidConfigManager().raidBroadcastEnabled()) {
@@ -214,4 +233,5 @@ public class RaidOutcomeHandler {
         return rendered;
     }
 }
+
 

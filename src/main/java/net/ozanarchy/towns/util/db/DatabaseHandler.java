@@ -388,6 +388,21 @@ public class DatabaseHandler {
         return false;
     }
 
+    public int getClaimCount(int townId) {
+        String sql = "SELECT COUNT(*) AS total FROM claims WHERE town_id = ?";
+        try (PreparedStatement stmt = plugin.getConnection().prepareStatement(sql)) {
+            stmt.setInt(1, townId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return Math.max(0, rs.getInt("total"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     private boolean isEdgeClaim(ClaimCoord claim, Set<String> claimKeys) {
         return !claimKeys.contains(claim.neighborKey(1, 0))
                 || !claimKeys.contains(claim.neighborKey(-1, 0))
@@ -547,6 +562,23 @@ public class DatabaseHandler {
             townIdByNameCacheExpiresAt.put(normalized, System.currentTimeMillis() + CACHE_TTL_MS);
         }
         return null;
+    }
+
+    public List<String> getAllTownNames() {
+        List<String> names = new ArrayList<>();
+        String sql = "SELECT name FROM towns ORDER BY name ASC";
+        try (PreparedStatement stmt = plugin.getConnection().prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String name = rs.getString("name");
+                if (name != null && !name.isBlank()) {
+                    names.add(name);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
     }
 
     /**

@@ -16,7 +16,8 @@ public class GuiConfigHandler {
             "main.yml",
             "bank.yml",
             "members.yml",
-            "permissions.yml"
+            "permissions.yml",
+            "info.yml"
     );
 
     private final JavaPlugin plugin;

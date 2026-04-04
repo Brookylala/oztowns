@@ -32,6 +32,7 @@ help:
       "3":
         - "&8&m------------&r &6&lUtility Commands &8&m------------"
         - "&e/towns members &7- Open member management"
+        - "&e/towns info [town] &7- View town information"
         - "&e/towns gui &7- Open the main town GUI"
         - "&e/towns visualizer &7- Show nearby claim borders"
         - "&e/towns chunks &7- Alias for visualizer"

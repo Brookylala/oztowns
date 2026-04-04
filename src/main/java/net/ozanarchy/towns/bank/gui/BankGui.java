@@ -4,7 +4,7 @@ import net.ozanarchy.towns.TownsPlugin;
 import net.ozanarchy.towns.bank.repository.TownBankRepository;
 import net.ozanarchy.towns.upkeep.repository.UpkeepRepository;
 import net.ozanarchy.towns.util.db.DatabaseHandler;
-import net.ozanarchy.towns.util.SkullCreator;
+import net.ozanarchy.towns.util.GuiItemFactory;
 import net.ozanarchy.towns.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,7 +16,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +95,7 @@ public class BankGui implements Listener {
                                     .replace("{upkeep}", String.valueOf(finalUpkeep));
                             coloredLore.add(Utils.getColor(processedLine));
                         }
-                        inv.setItem(slot, createItem(itemSection, name, coloredLore, Material.PAPER));
+                        inv.setItem(slot, GuiItemFactory.createItem(itemSection, name, coloredLore, Material.PAPER));
                     }
                 }
 
@@ -238,7 +237,7 @@ public class BankGui implements Listener {
 
         String name = Utils.getColor(filler.getString("name", " "));
         List<String> coloredLore = colorizeLines(filler.getStringList("lore"));
-        ItemStack fillerItem = createItem(filler, name, coloredLore, Material.GRAY_STAINED_GLASS_PANE);
+        ItemStack fillerItem = GuiItemFactory.createItem(filler, name, coloredLore, Material.GRAY_STAINED_GLASS_PANE);
 
         boolean fill = filler.getBoolean("fill", false);
         List<Integer> slots = filler.getIntegerList("slots");
@@ -267,29 +266,6 @@ public class BankGui implements Listener {
         return colored;
     }
 
-    private ItemStack createItem(ConfigurationSection section, String displayName, List<String> lore, Material fallback) {
-        String materialName = section.getString("material", fallback.name());
-        String texture = section.getString("texture");
-
-        ItemStack item;
-        if ("PLAYER_HEAD".equals(materialName) && texture != null && !texture.isEmpty()) {
-            item = SkullCreator.itemFromBase64(texture);
-        } else {
-            try {
-                item = new ItemStack(Material.valueOf(materialName));
-            } catch (IllegalArgumentException e) {
-                item = new ItemStack(fallback);
-            }
-        }
-
-        ItemMeta meta = item.getItemMeta();
-        if (meta != null) {
-            meta.setDisplayName(displayName);
-            meta.setLore(lore);
-            item.setItemMeta(meta);
-        }
-        return item;
-    }
 }
 
 
