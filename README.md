@@ -162,5 +162,5 @@ Current behavior includes:
 
 ## License
 
-No `LICENSE` file is currently present in this repository snapshot.
-Add one at repository root before publishing if you want explicit usage/redistribution terms.
+This project is licensed under the GNU General Public License v3.0.
+See [LICENSE](LICENSE) for full terms.
