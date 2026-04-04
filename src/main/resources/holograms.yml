@@ -1,0 +1,28 @@
+# OzTowns - Hologram Configuration
+# Applies when DecentHolograms is installed and enabled.
+
+holograms:
+  # If true, OzTowns creates/updates town spawn holograms.
+  enabled: true
+
+  # Prefix added to every DecentHolograms ID created by OzTowns.
+  # Useful to avoid naming collisions with other plugins.
+  id-prefix: "oztowns_"
+
+  # Vertical offset (blocks) above the spawn block where hologram appears.
+  y-offset: 2.25
+
+  # Text lines for spawn holograms.
+  # Supported OzTowns placeholders:
+  # - {townname} / {town-name}
+  # - {mayor-name} / {mayor}
+  # - {town-member-count} / {member-count}
+  # - {balance}
+  # - {tier-name} / {tier-level} / {tier-value}
+  # PlaceholderAPI placeholders can also be used when PlaceholderAPI is installed.
+  string-lines:
+    - "&a{townname}"
+    - "&eTier: &f{tier-name} &7({tier-level}/5)"
+    - "&eMayor: &f{mayor-name}"
+    - "&eMembers: &f{town-member-count}"
+    - "&eBank: &a${balance}"

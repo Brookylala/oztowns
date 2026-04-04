@@ -1,0 +1,53 @@
+# OzTowns 2.0 - Town Tier Configuration
+# Defines tier order, limits, and progress requirements.
+
+tiers:
+  # Master switch for tier system processing.
+  enabled: true
+
+  # Tier assigned to newly created towns.
+  # Valid values (TownTier enum): TIER_1, TIER_2, TIER_3, TIER_4, TIER_5
+  default-tier: TIER_1
+
+  # Maximum tier towns are allowed to reach.
+  # Valid values (TownTier enum): TIER_1, TIER_2, TIER_3, TIER_4, TIER_5
+  max-tier: TIER_5
+
+  # If true, numeric progress is required before tier upgrades.
+  # If false, upgrades can happen without progress checks.
+  use-progress: true
+
+  progression:
+    # Reserved setting for future passive decay scheduler usage.
+    decay-enabled: false
+    # Reserved setting: minutes between passive decay checks.
+    decay-interval-minutes: 1440
+
+  # Tier definitions by enum key.
+  definitions:
+    TIER_1:
+      # Display text shown in UI/placeholders.
+      display-name: "&7Settlement"
+      # Progress required to upgrade from this tier to the next tier.
+      upgrade-progress-required: 100.0
+      # Reserved: passive progress decay amount per cycle.
+      passive-decay-per-cycle: 0.0
+    TIER_2:
+      display-name: "&aVillage"
+      upgrade-progress-required: 200.0
+      passive-decay-per-cycle: 0.0
+    TIER_3:
+      display-name: "&bTown"
+      upgrade-progress-required: 300.0
+      passive-decay-per-cycle: 0.0
+    TIER_4:
+      display-name: "&dCity"
+      upgrade-progress-required: 400.0
+      passive-decay-per-cycle: 0.0
+    TIER_5:
+      display-name: "&6Metropolis"
+      # Top tier usually keeps this at 0 because there is no higher tier.
+      upgrade-progress-required: 0.0
+      passive-decay-per-cycle: 0.0
+
+

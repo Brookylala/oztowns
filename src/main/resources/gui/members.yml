@@ -1,0 +1,27 @@
+# OzTowns - Members GUI
+# Controls /town members list appearance.
+
+members_gui:
+  # Inventory title.
+  title: "&8Town Members"
+  # Inventory size (must be multiple of 9).
+  size: 54
+  # Text used for online member status placeholder.
+  status_online: "&aOnline"
+  # Text used for offline member status placeholder.
+  status_offline: "&cOffline"
+  # Lore template used for each member head.
+  # Supported placeholders: {role}, {status}
+  member_lore:
+    - "&7Role: {role}"
+    - "&7Status: {status}"
+  empty_item:
+    # Slot index used when town has no members to display.
+    slot: 22
+    # Bukkit Material enum.
+    material: "BARRIER"
+    # Display name for empty-state item.
+    name: "&cNo members"
+    # Lore for empty-state item.
+    lore:
+      - "&7Your town has no members."

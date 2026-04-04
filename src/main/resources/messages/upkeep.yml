@@ -1,0 +1,9 @@
+# ============================================================
+# OzTowns - Upkeep Messages (2.0 structure)
+# Placeholders used here include: {cost}
+# ============================================================
+upkeep:
+  payment:
+    # Placeholder: {cost}
+    success: "&aTown upkeep of &e${cost} &awas paid."
+    overdue: "&cTown upkeep is overdue. Deposit funds to avoid deletion."

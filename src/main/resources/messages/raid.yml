@@ -1,0 +1,35 @@
+# ============================================================
+# OzTowns - Raid Messages (2.0 structure)
+# Placeholders used here include: {player}, {town}, {seconds}, {balance}
+# ============================================================
+raid:
+  general:
+    # Sent when raids are globally disabled.
+    disabled: "&cRaiding is currently disabled."
+    # Sent when player attempts to raid their own town.
+    cannot-raid-own-town: "&cYou cannot lockpick your own town's Lodestone."
+    # Sent when wrong lockpick type is used.
+    lodestone-pick-required: "&cOnly a Lodestone Pick can raid a town core."
+  success:
+    # Placeholder: {balance}
+    with-loot: "&aYou lockpicked the town spawn and stole &e${balance} &afrom the town bank."
+    empty: "&aYou lockpicked the town spawn, but the town bank was empty."
+  fail:
+    damage: "&cRaid failed. You took damage."
+    death: "&cRaid failed. You died."
+  broadcast:
+    # Placeholders: {player}, {town}
+    success: "&c&l{player} &7successfully raided the town of &c&l{town}&7."
+  timer:
+    # Placeholder: {seconds}
+    chat: "&c&lRAID IN PROGRESS! &7Stay alive for &c{seconds} &7seconds to complete the raid."
+    # Placeholder: {seconds}
+    bossbar: "&c&lRAID IN PROGRESS: &f{seconds}s &7remaining"
+    # Placeholders: {player}, {seconds}
+    defender-bossbar: "&c&lRAID ALERT: &f{player} &7| &f{seconds}s &7remaining"
+  cleanup:
+    # Placeholder: {seconds}
+    start: "&6&lCLEANUP RAID: &7This town is decaying. Cleanup completes in &e{seconds}&7s."
+    success: "&aCleanup complete. The decaying town was removed."
+
+

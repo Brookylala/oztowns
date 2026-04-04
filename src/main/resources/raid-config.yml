@@ -1,0 +1,250 @@
+# OzTowns raid settings.
+# This file controls raid rules, state-based behavior, and optional raid item matching.
+
+raid:
+  # Master raid toggle for this file.
+  # Final raid availability also depends on config.yml -> features.raids.
+  enabled: true
+
+  # Default raid timer (seconds) for NORMAL raids when a state override does not set its own timer.
+  duration-seconds: 60
+
+  # If true, the raid fails immediately when the attacker takes damage.
+  fail-on-damage: true
+  # If true, the raid fails immediately when the attacker dies.
+  fail-on-death: true
+  # If true, the raid fails immediately when the attacker disconnects.
+  fail-on-disconnect: true
+
+  worlds:
+    # World allowlist.
+    # If empty, all worlds are allowed unless blocked below.
+    # If not empty, only worlds listed here are allowed.
+    allowed: []
+    # World blocklist.
+    # Any world listed here is denied even if it is in allowed.
+    blocked: []
+
+  bossbar:
+    # Raid bossbar color (Bukkit BarColor enum).
+    # Valid values: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+    color: RED
+    # Raid bossbar style (Bukkit BarStyle enum).
+    # Valid values: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+    style: SEGMENTED_10
+
+  broadcast:
+    # If true, successful raids are announced server-wide.
+    enabled: true
+
+  cooldown:
+    # Cooldown after a successful raid before this same town can be raided again.
+    # Stored in the towns table so it persists across restarts.
+    # 0 disables cooldown.
+    seconds: 1800
+    # Placeholder: {seconds}
+    message: "&cThis town was recently raided. Try again in &f{seconds}s&c."
+
+  sounds:
+    success:
+      # If true, plays success sound to the attacker on successful raid completion.
+      enabled: true
+      # Bukkit Sound enum value.
+      # Example values: BLOCK_STONE_BREAK, ENTITY_PLAYER_LEVELUP, ITEM_TOTEM_USE
+      sound: BLOCK_STONE_BREAK
+      # Sound volume multiplier.
+      volume: 1.0
+      # Sound pitch multiplier.
+      pitch: 1.0
+
+  # Behavior profile per upkeep state.
+  # Upkeep states (from UpkeepState enum): ACTIVE, OVERDUE, NEGLECTED, ABANDONED, DECAYING
+  state-behavior:
+    ACTIVE:
+      # Controls raid flow type for this state.
+      # Valid values (RaidFlowType enum):
+      # - NORMAL  = standard timed raid flow
+      # - CLEANUP = cleanup-mode raid flow used for decaying cleanup behavior
+      mode: NORMAL
+      # Seconds the attacker must survive to complete this state's raid.
+      timer-seconds: 60
+      alerts:
+        # If true, defender notifications/bossbars are shown.
+        enabled: true
+      payout:
+        # Controls loot payout calculation mode (RaidPayoutMode enum).
+        # Valid values:
+        # - PERCENT = attacker gets town bank balance * percent
+        # - FULL    = attacker gets full town bank balance
+        mode: PERCENT
+        # Used by PERCENT mode.
+        # 1.0 = 100% of town bank, 0.5 = 50%.
+        percent: 1.0
+      # If true, town is deleted after successful raid completion in this state.
+      delete-town-on-success: false
+
+    OVERDUE:
+      mode: NORMAL
+      timer-seconds: 60
+      alerts:
+        enabled: true
+      payout:
+        mode: PERCENT
+        percent: 1.0
+      delete-town-on-success: false
+
+    NEGLECTED:
+      mode: NORMAL
+      timer-seconds: 60
+      alerts:
+        enabled: true
+      payout:
+        mode: PERCENT
+        percent: 1.0
+      delete-town-on-success: false
+
+    ABANDONED:
+      mode: NORMAL
+      timer-seconds: 30
+      alerts:
+        enabled: false
+      payout:
+        mode: PERCENT
+        percent: 0.9
+      delete-town-on-success: false
+
+    DECAYING:
+      mode: CLEANUP
+      timer-seconds: 3
+      alerts:
+        enabled: false
+      payout:
+        mode: PERCENT
+        percent: 0.5
+      delete-town-on-success: true
+
+  item:
+    # If true, OzTowns validates/creates its own raid item definition.
+    # If false, item definition checks are bypassed by OzTowns.
+    enabled: true
+
+    # Base item type (Bukkit Material enum, item materials only).
+    material: TRIPWIRE_HOOK
+    # Base amount per item stack template.
+    amount: 1
+    # Display name for generated raid pick item.
+    display-name: "&cRaid Pick"
+    # Lore lines for generated raid pick item.
+    lore:
+      - "&7Use this to raid town cores."
+    # Custom model data value.
+    # Set 0 to effectively disable custom model matching/display.
+    custom-model-data: 0
+    # If true, generated raid item is marked unbreakable.
+    unbreakable: false
+
+    messages:
+      # Sent when a player tries to place the raid lockpick as a block.
+      cannot-place: "&cRaid lockpicks cannot be placed."
+
+    identification:
+      # If true, the item must contain the configured string PDC key/value to match.
+      require-pdc: false
+      pdc:
+        # NamespacedKey namespace used for PDC matching.
+        namespace: "oztowns"
+        # NamespacedKey key used for PDC matching.
+        key: "raid_pick"
+        # Expected string value stored in PDC.
+        value: "true"
+      # If true, require custom-model-data to match configured value.
+      match-custom-model-data: false
+      # If true, require display-name to match configured display-name.
+      match-display-name: false
+      # If true, require lore to match configured lore lines.
+      match-lore: false
+      # If true, material check is used as fallback matcher.
+      match-material-fallback: true
+      # If true, enforces stricter meta comparisons when matching item metadata.
+      strict-meta: false
+
+  minigame:
+    # Master toggle for OzTowns raid entry minigame.
+    # If false, valid lockpick use immediately breaches into raid flow.
+    enabled: true
+
+    gui:
+      # Minigame inventory title shown to the attacker.
+      title: "&c&lBreach Lock"
+
+    # Total minigame duration in ticks (20 ticks = 1 second).
+    duration-ticks: 50
+    # How often the indicator updates in ticks.
+    update-interval-ticks: 2
+    # Width of the green success zone (1-9 slots).
+    success-zone-size: 3
+
+    # If true, inventory closes automatically after a success.
+    close-on-success: true
+    # If true, inventory closes automatically after fail/timeout.
+    close-on-fail: true
+
+    sounds:
+      # Played each indicator movement step.
+      tick: UI_BUTTON_CLICK
+      # Played on success.
+      success: ENTITY_PLAYER_LEVELUP
+      # Played on fail.
+      fail: BLOCK_ANVIL_LAND
+
+    messages:
+      success: "&aBreach successful. Raid started."
+      fail: "&cBreach failed."
+      timeout: "&cBreach timed out."
+      cancelled: "&cBreach cancelled."
+      already-active: "&cYou already have an active raid entry attempt."
+      item-missing: "&cYou must hold the raid lockpick to start this breach."
+
+    difficulty:
+      # If true, tier-specific settings override base minigame values.
+      use-tier-scaling: true
+      # Valid tier keys (TownTier enum): TIER_1, TIER_2, TIER_3, TIER_4, TIER_5
+      tier-overrides:
+        TIER_1:
+          success-zone-size: 3
+          duration-ticks: 50
+          update-interval-ticks: 2
+        TIER_2:
+          success-zone-size: 3
+          duration-ticks: 45
+          update-interval-ticks: 2
+        TIER_3:
+          success-zone-size: 2
+          duration-ticks: 40
+          update-interval-ticks: 1
+        TIER_4:
+          success-zone-size: 2
+          duration-ticks: 35
+          update-interval-ticks: 1
+        TIER_5:
+          success-zone-size: 1
+          duration-ticks: 30
+          update-interval-ticks: 1
+# Optional crafting recipe for the OzTowns raid item.
+recipe:
+  # If true, registers the recipe at plugin load/reload.
+  enabled: true
+  # 3-row crafting shape.
+  # Use single characters that are mapped in recipe.ingredients.
+  # Spaces are empty slots.
+  shape:
+    - " IN"
+    - " SI"
+    - "S  "
+  ingredients:
+    # Ingredient map character -> Bukkit Material enum.
+    I: IRON_INGOT
+    N: NETHERITE_SCRAP
+    S: STICK
+
+

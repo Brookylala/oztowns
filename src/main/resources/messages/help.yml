@@ -1,0 +1,64 @@
+# ============================================================
+# OzTowns - Help Messages (2.0 structure)
+# Edit these lines to customize help text shown in-game.
+# ============================================================
+help:
+  town:
+    # Header shown before town help pages.
+    title: "&6&lTown Help"
+    pages:
+      # Town help page 1 (/towns help 1)
+      "1":
+        - "&8&m------------&r &6&lTown Commands &8&m------------"
+        - "&e/towns create <name> &7- Create a new town"
+        - "&e/towns abandon confirm &7- Delete your town"
+        - "&e/towns claim &7- Claim your current chunk"
+        - "&e/towns unclaim &7- Unclaim your current chunk"
+        - "&e/towns rename <name> &7- Rename your town"
+        - "&e/towns setspawn &7- Set town spawn"
+        - "&e/towns spawn &7- Teleport to town spawn"
+      # Town help page 2 (/towns help 2)
+      "2":
+        - "&8&m------------&r &6&lMember Commands &8&m------------"
+        - "&e/towns invite <player> &7- Invite a player"
+        - "&e/towns accept &7- Accept a town invite"
+        - "&e/towns deny &7- Deny a town invite"
+        - "&e/towns remove <player> &7- Remove a member"
+        - "&e/towns promote <player> &7- Promote to officer"
+        - "&e/towns demote <player> &7- Demote to member"
+        - "&e/towns setmayor <player> &7- Transfer mayor"
+        - "&e/towns leave &7- Leave your town"
+      # Town help page 3 (/towns help 3)
+      "3":
+        - "&8&m------------&r &6&lUtility Commands &8&m------------"
+        - "&e/towns members &7- Open member management"
+        - "&e/towns gui &7- Open the main town GUI"
+        - "&e/towns visualizer &7- Show nearby claim borders"
+        - "&e/towns chunks &7- Alias for visualizer"
+        - "&e/tm <message> &7- Send town chat message"
+        - "&e/townbank help &7- View bank commands"
+        - "&7Tip: Use &e/towns help <page> &7to switch pages"
+  bank:
+    # Header shown before bank help list.
+    title: "&6&lTown Bank Help"
+    commands:
+      - "&8&m------------&r &6&lBank Commands &8&m------------"
+      - "&e/townbank gui &7- Open the bank GUI"
+      - "&e/townbank deposit <amount> &7- Deposit to town bank"
+      - "&e/townbank withdraw <amount> &7- Withdraw from town bank"
+      - "&e/townbank balance &7- Show town bank balance"
+      - "&e/townbank help &7- Show this menu"
+  admin:
+    # Lines shown by /townadmin help.
+    commands:
+      - "&8&m------------&r &c&lAdmin Commands &8&m------------"
+      - "&c/townadmin help &7- Show admin help"
+      - "&c/townadmin reload &7- Reload configs/messages"
+      - "&c/townadmin deletetown <town> &7- Delete a town"
+      - "&c/townadmin setspawn <town> &7- Set town spawn"
+      - "&c/townadmin removespawn <town> &7- Remove town spawn"
+      - "&c/townadmin tp <town> &7- Teleport to town spawn"
+      - "&c/townadmin addmember <town> <player> &7- Add member"
+      - "&c/townadmin removemember <town> <player> &7- Remove member"
+      - "&c/townadmin setmayor <town> <player> &7- Set mayor"
+      - "&c/townadmin giveraidpick <player> [amount] &7- Give raid pick"

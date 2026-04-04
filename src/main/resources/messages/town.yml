@@ -1,0 +1,119 @@
+# ============================================================
+# OzTowns - Town Messages (2.0 structure)
+# Placeholders used here include: {town}, {player}, {seconds}, {duration}
+# ============================================================
+town:
+  create:
+    # Sent when a town is created successfully. Placeholder: {town}
+    success: "&aTown &f{town} &awas created successfully."
+    # Follow-up hint sent after creating a town.
+    next-steps: "&eSet your spawn with &f/towns setspawn&e to finish setup."
+    # Sent if town creation fails internally.
+    failed: "&cTown creation failed due to a database error."
+    # Sent when chosen town name already exists.
+    name-taken: "&cThat town name is already in use."
+    # Sent when chosen town name is blacklisted.
+    name-blacklisted: "&cThat town name is blacklisted."
+  delete:
+    # Confirmation warning before deleting a town.
+    confirm: "&aYou are about to &c&lDELETE &ayour town. Confirm with &f/towns abandon confirm&a."
+    # Sent when town deletion succeeds.
+    success: "&cYour town has been abandoned."
+  membership:
+    not-in-town: "&cYou are not in a town."
+    already-in-town: "&cYou are already in a town."
+    town-not-found: "&cThat town does not exist."
+    player-not-in-your-town: "&cThat player is not in your town."
+    player-already-in-town: "&cThat player is already in a town."
+    # Sent to player who joined. Placeholder: {town}
+    joined: "&aYou joined town &f{town}&a."
+    left: "&aYou left your town."
+    leave-failed: "&cFailed to leave your town."
+    kicked: "&cYou were removed from your town."
+  roles:
+    not-mayor: "&cYou are not the town Mayor."
+    not-admin: "&cYou are not a town admin."
+    mayor-cannot-leave: "&cThe Mayor cannot leave the town."
+    cannot-remove-mayor: "&cYou cannot remove the Mayor."
+    cannot-promote: "&cThat player cannot be promoted."
+    cannot-demote: "&cThat player cannot be demoted."
+    cannot-demote-self: "&cYou cannot demote yourself."
+    # Placeholder: {player}
+    promote-success-member: "&aPromoted &f{player} &ato Officer."
+    promote-success-target: "&aYou were promoted to Officer."
+    promote-failed: "&cFailed to promote that player."
+    # Placeholder: {player}
+    demote-success-member: "&aDemoted &f{player} &ato Member."
+    demote-success-target: "&eYou were demoted to Member."
+    demote-failed: "&cFailed to demote that player."
+  mayor:
+    # Placeholders: {town}, {player}
+    transfer-success: "&aYou transferred Mayor of &f{town} &ato &f{player}&a."
+    # Placeholder: {town}
+    transfer-target: "&aYou are now the Mayor of &f{town}&a."
+    transfer-failed: "&cFailed to transfer Mayor role."
+    set-failed: "&cFailed to set mayor."
+    new: "&aA new mayor was set."
+  claim:
+    success: "&aYou successfully claimed this chunk."
+    removed: "&aYou successfully unclaimed this chunk."
+    owned: "&cThis chunk is owned by another town."
+    unowned: "&cThis chunk is unclaimed."
+    disconnected: "&cYou can only claim chunks adjacent to your existing claims."
+    world-blocked: "&cYou cannot claim land in this world."
+    unclaim-failed: "&cFailed to unclaim this chunk."
+  spawn:
+    not-set: "&cYour town does not have a spawn set."
+    set-success: "&aTown spawn set successfully."
+    set-restricted: "&cYou can only set your town spawn inside your claimed territory."
+    removed: "&eTown spawn removed."
+    # Placeholder: {minutes}
+    reminder: "&cSet a town spawn with &f/towns setspawn&c. Your town will be deleted in &e{minutes} &cminutes if no spawn is set."
+    # Placeholder: {seconds}
+    cooldown: "&cPlease wait &f{seconds}s &cbefore setting spawn again."
+    height-restricted: "&cYou cannot set town spawn that high."
+    sky-restricted: "&cSpawn must have open sky above it."
+    sky-obstructed: "&cYour town spawn is blocked above and cannot be used."
+    teleport:
+      already: "&cYou are already teleporting."
+      cancelled: "&cTeleport cancelled because you moved."
+      success: "&aTeleported to your town spawn."
+      bar: "&eTeleporting..."
+      # Placeholder: {seconds}
+      bar-title: "&eTeleporting in &f{seconds}&es"
+  invite:
+    usage: "&cIncorrect usage. Use &f/towns invite <player>&c."
+    # Placeholders: {player}, {seconds}
+    sent: "&aInvite sent to &f{player}&a. Expires in &f{seconds}&as."
+    # Placeholders: {player}, {town}, {seconds}
+    received: "&e{player} invited you to &f{town}&e. Expires in &f{seconds}&es."
+    actions: "&eUse &f/towns accept &eor &f/towns deny"
+    no-pending: "&cYou have no pending invite."
+    invalid: "&cThat invite is no longer valid."
+    # Placeholder: {town}
+    accepted-target: "&aYou joined &f{town}&a."
+    # Placeholder: {player}
+    accepted-requester: "&a{player} accepted your invite."
+    denied-target: "&eInvite denied."
+    # Placeholder: {player}
+    denied-requester: "&e{player} denied your invite."
+    expired-target: "&cInvite expired."
+    # Placeholder: {player}
+    expired-requester: "&eInvite to &f{player} &eexpired."
+  member:
+    added-failed: "&cFailed to add that member."
+    # Placeholder: {player}
+    removed: "&aRemoved &f{player} &afrom your town."
+    remove-failed: "&cFailed to remove that member."
+    # Placeholder: {max}
+    max-members-reached: "&cThis town is full. Maximum members: &f{max}&c."
+  visualizer:
+    # Placeholder: {duration}
+    enabled: "&aChunk visualizer enabled for &f{duration} &aseconds."
+    disabled: "&cChunk visualizer is disabled."
+    invalid-particle: "&cInvalid particle configured for visualizer."
+  protection:
+    missing-interact-perm: "&cYou do not have permission to interact here."
+    missing-container-perm: "&cYou do not have permission to open containers here."
+    cannot-break-lodestone: "&cYou cannot break the town Lodestone."
+

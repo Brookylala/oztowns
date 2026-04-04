@@ -1,0 +1,83 @@
+# OzTowns 2.0 - Town Feature Configuration
+# Controls town gameplay systems (chat, claiming, spawn, bossbars, naming, visualizer).
+
+chat:
+  # If true, enables the /tm town chat command.
+  enabled: true
+  # Color code used for sender name formatting in town chat.
+  player-name-color: "&e"
+
+costs:
+  # Money cost to create a town.
+  create: 50.0
+  # Money cost to claim one chunk.
+  claim: 5.0
+
+limits:
+  # Maximum members allowed in a town (including mayor).
+  # -1 = unlimited members
+  #  1+ = hard cap
+  max-members: -1
+
+spawn:
+  # Cooldown in seconds between /towns setspawn uses by the same player.
+  set-cooldown-seconds: 120
+  # Delay in seconds before /towns spawn teleport completes.
+  # Moving during this delay cancels teleport.
+  teleport-delay-seconds: 15
+
+lifecycle:
+  spawn-reminder:
+    # If true, reminds towns to set a spawn before timeout rules apply.
+    enabled: true
+    # Town age limit in minutes before reminder/deletion checks become relevant.
+    max-age-minutes: 60
+    # Reminder message interval in minutes.
+    reminder-interval-minutes: 5
+
+bossbar:
+  town:
+    # Bossbar color in claimed town land (Bukkit BarColor enum).
+    # Valid values: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+    color: GREEN
+    # Bossbar style in claimed town land (Bukkit BarStyle enum).
+    # Valid values: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+    style: SOLID
+  wilderness:
+    # Bossbar color in unclaimed land.
+    color: WHITE
+    # Bossbar style in unclaimed land.
+    style: SOLID
+
+claims:
+  # Worlds where claiming land is blocked.
+  # World names must match Bukkit world folder names exactly.
+  unclaimable-worlds:
+    - "world_nether"
+    - "world_the_end"
+
+visualizer:
+  # If true, /towns visualizer can be used.
+  enabled: true
+  # Visualizer duration in seconds.
+  duration: 30
+  # Particle used for your own town claims.
+  # Valid values: Bukkit Particle enum names that require no data or DustOptions.
+  own: SOUL_FIRE_FLAME
+  # Particle used for enemy claims.
+  enemy: FLAME
+  # Particle used for wilderness (unclaimed chunks).
+  wild: COMPOSTER
+
+naming:
+  # Blacklisted town names (case-insensitive exact match).
+  blacklisted:
+    - "admin"
+    - "server"
+    - "console"
+    - "owner"
+    - "moderator"
+    - "helper"
+    - "staff"
+    - "builder"
+

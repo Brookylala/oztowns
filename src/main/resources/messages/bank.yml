@@ -1,0 +1,22 @@
+# ============================================================
+# OzTowns - Bank Messages (2.0 structure)
+# Placeholders used here include: {amount}, {balance}
+# ============================================================
+bank:
+  deposit:
+    # Prompt shown for deposit amount entry.
+    prompt: "&eHow much would you like to deposit?"
+    # Placeholder: {amount}
+    success: "&aDeposited &e${amount} &ainto the town bank."
+  withdraw:
+    # Prompt shown for withdraw amount entry.
+    prompt: "&eHow much would you like to withdraw?"
+    # Placeholder: {amount}
+    success: "&aWithdrew &e${amount} &afrom the town bank."
+    insufficient-balance: "&cYour town bank does not have enough balance."
+  balance:
+    # Placeholder: {balance}
+    info: "&aTown Bank Balance: &e${balance}&a."
+  chat-input:
+    pending: "&eFinish your previous bank input or type &fcancel&e."
+    timeout: "&cBank input timed out. Please try again."

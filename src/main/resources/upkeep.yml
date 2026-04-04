@@ -1,0 +1,106 @@
+# OzTowns 2.0 - Upkeep Configuration
+# Controls recurring upkeep cost, activity checks, state progression, and decay cleanup.
+
+# Master upkeep toggle.
+enabled: true
+
+payment:
+  # Minutes between upkeep processing cycles.
+  interval-minutes: 1440
+  # If true, upkeep attempts to auto-withdraw from town bank.
+  auto-pay-from-bank: true
+
+  costs:
+    # Flat upkeep cost charged every cycle.
+    base: 0.0
+    claim:
+      # Additional upkeep added when a chunk is claimed.
+      added: 10.0
+      # Upkeep removed when a claimed chunk is unclaimed.
+      refunded: 10.0
+    member:
+      # Additional upkeep added when a member joins.
+      added: 5.0
+      # Upkeep removed when a member leaves or is removed.
+      refunded: 5.0
+
+activity:
+  # If true, member activity is tracked for inactivity-based state changes.
+  enabled: true
+  # A town is considered recently active if at least one member was seen in this many minutes.
+  recent-login-within-minutes: 10080
+  # If true, activity requires at least one member online within the above window.
+  require-any-member-online-within-window: true
+
+states:
+  overdue:
+    # Number of unpaid upkeep cycles before state becomes OVERDUE.
+    unpaid-cycles: 1
+  neglected:
+    # Number of unpaid upkeep cycles before state becomes NEGLECTED.
+    unpaid-cycles: 2
+    # Minutes of inactivity before state can become NEGLECTED.
+    inactive-minutes: 10080
+  abandoned:
+    # Number of unpaid upkeep cycles before state becomes ABANDONED.
+    unpaid-cycles: 4
+    # Minutes of inactivity before state can become ABANDONED.
+    inactive-minutes: 20160
+  decaying:
+    # Number of unpaid upkeep cycles before state becomes DECAYING.
+    unpaid-cycles: 6
+    # Minutes of inactivity before state can become DECAYING.
+    inactive-minutes: 30240
+
+tier-integration:
+  # If true, upkeep system modifies town tier progression/decay values.
+  enabled: true
+
+  progression:
+    # Tier progress gained per successful upkeep payment.
+    progress-per-successful-payment: 25.0
+    # If true, successful payment grants progress only when activity conditions are met.
+    require-activity-for-progress: true
+
+  decay:
+    # If true, unpaid cycles reduce tier progress.
+    lose-progress-when-unpaid: true
+    # Tier progress lost per unpaid cycle.
+    progress-loss-per-unpaid-cycle: 15.0
+    # If true, inactivity cycles reduce tier progress.
+    lose-progress-when-inactive: true
+    # Tier progress lost per inactivity cycle.
+    progress-loss-per-inactive-cycle: 10.0
+
+  downgrade:
+    # If true, tier downgrades are allowed by upkeep decay logic.
+    enabled: true
+    # If true, downgrade triggers when progress reaches zero.
+    downgrade-when-progress-reaches-zero: true
+    # If true, resets progress after downgrade.
+    reset-progress-on-downgrade: false
+
+decay:
+  # Master decay cleanup toggle.
+  enabled: true
+
+  claim-decay:
+    # If true, decaying towns begin losing claims automatically.
+    enabled: false
+    # Upkeep state where claim decay starts.
+    # Valid values (UpkeepState enum): ACTIVE, OVERDUE, NEGLECTED, ABANDONED, DECAYING
+    start-at-state: DECAYING
+    # If true, removes one claimed chunk per upkeep cycle.
+    unclaim-one-chunk-per-cycle: true
+    # If true, keeps the spawn chunk until final town removal phase.
+    preserve-spawn-chunk-until-final-removal: true
+
+  town-removal:
+    # If true, towns are deleted after enough decay cycles.
+    enabled: true
+    # Upkeep state where town-removal cycle counting begins.
+    # Valid values (UpkeepState enum): ACTIVE, OVERDUE, NEGLECTED, ABANDONED, DECAYING
+    remove-after-state: DECAYING
+    # Number of decay cycles after remove-after-state before deleting the town.
+    remove-after-cycles: 10
+

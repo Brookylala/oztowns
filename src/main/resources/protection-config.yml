@@ -1,0 +1,23 @@
+# OzTowns - Protection Configuration
+# Controls land protection checks for interaction, building, and explosions.
+
+protection:
+  # If true, players without permission cannot break protected blocks in claims.
+  block-break: true
+  # If true, players without permission cannot place protected blocks in claims.
+  block-place: true
+  # If true, interaction checks run for right-click actions in claims.
+  interact: true
+  # If true, container inventory open checks run in claims.
+  inventory-open: true
+  # If true, entity explosions are prevented from damaging claimed chunks.
+  entity-explode: true
+  # If true, block-origin explosions (for example TNT blocks) are prevented in claims.
+  block-explode: true
+
+  bypass:
+    # If true, right-click interactions on InventoryHolder blocks bypass interact protection check.
+    # Example blocks: chest, barrel, hopper.
+    inventory-holders: true
+    # If true, inventory opens related to the active town Lodestone bypass container checks.
+    town-lodestone-inventory: true

@@ -1,0 +1,71 @@
+# OzTowns - Member Permission GUI
+# Used by mayors to toggle per-member permissions.
+
+permissions_gui:
+  # GUI title. Supported placeholder: {player}
+  title: "&8Permissions: {player}"
+  # Inventory size (must be multiple of 9).
+  size: 27
+  filler:
+    # If true, fills empty slots with filler item.
+    fill: true
+    # Filler material (Bukkit Material enum).
+    material: "GRAY_STAINED_GLASS_PANE"
+    # Filler display name.
+    name: " "
+  items:
+    # Item key names are important and map to permission nodes:
+    # can_claim, can_unclaim, can_withdraw, can_invite, can_build, can_interact
+    can_claim:
+      slot: 10
+      material: "DIAMOND_SHOVEL"
+      name: "&6&lClaiming"
+      # Supported placeholder: {status}
+      lore:
+        - "&7Allows member to claim chunks."
+        - "&7Status: {status}"
+    can_unclaim:
+      slot: 11
+      material: "IRON_SHOVEL"
+      name: "&c&lUnclaiming"
+      lore:
+        - "&7Allows member to unclaim chunks."
+        - "&7Status: {status}"
+    can_withdraw:
+      slot: 12
+      material: "GOLD_INGOT"
+      name: "&e&lWithdrawing"
+      lore:
+        - "&7Allows member to withdraw money."
+        - "&7Status: {status}"
+    can_invite:
+      slot: 13
+      material: "PAPER"
+      name: "&b&lInviting"
+      lore:
+        - "&7Allows member to invite players."
+        - "&7Status: {status}"
+    can_build:
+      slot: 14
+      material: "GRASS_BLOCK"
+      name: "&2&lBuilding"
+      lore:
+        - "&7Allows member to build/break."
+        - "&7Status: {status}"
+    can_interact:
+      slot: 15
+      material: "LEVER"
+      name: "&f&lInteraction"
+      lore:
+        - "&7Allows member to interact."
+        - "&7Status: {status}"
+  back_button:
+    # Slot index for return button.
+    slot: 18
+    # Bukkit Material enum.
+    material: "ARROW"
+    # Back button name.
+    name: "&cBack to Members"
+    # Back button lore.
+    lore:
+      - "&7Return to the members list."

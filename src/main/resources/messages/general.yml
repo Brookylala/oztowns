@@ -1,0 +1,30 @@
+# ============================================================
+# OzTowns - General Messages
+# These keys are shared across multiple systems.
+# ============================================================
+
+general:
+  # Prefix added before most player-facing plugin messages.
+  prefix: "&f&l[&c&lOz&4&lTowns&f&l] "
+  error:
+    # Generic database failure message.
+    database: "&cA database error occurred. Please contact an admin."
+    # Sent when player lacks required permission.
+    no-permission: "&cYou do not have permission to do that."
+    # Sent when command arguments are invalid.
+    incorrect-usage: "&cIncorrect usage. Use &f/towns help&c."
+    # Sent when target player cannot be found.
+    player-not-found: "&cPlayer not found."
+    # Sent when player has insufficient funds.
+    not-enough-money: "&cYou do not have enough money."
+    # Sent when entered amount is not valid.
+    invalid-amount: "&cPlease enter a valid amount."
+  ui:
+    # Bossbar/title text when entering claimed land.
+    # Placeholder: {town}
+    town-entered: "&f&lEntering &e&l{town}"
+    # Optional leave text key used by UI contexts.
+    # Placeholder: {town}
+    town-left: "&f&lLeaving &e&l{town}"
+    # Name shown when in unclaimed chunks.
+    wilderness: "&a&lWilderness"

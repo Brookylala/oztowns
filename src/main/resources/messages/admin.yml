@@ -1,0 +1,35 @@
+# ============================================================
+# OzTowns - Admin Messages (2.0 structure)
+# Placeholders used here include: {town}, {player}, {amount}
+# ============================================================
+admin:
+  # Prefix for admin command feedback.
+  prefix: "&f[&cTownsAdmin&f] "
+  general:
+    must-be-player: "&cOnly players can use that command."
+    incorrect-usage: "&cIncorrect usage. &f/townadmin help"
+    reloaded: "&aConfig and messages reloaded."
+  town:
+    not-found: "&cTown not found."
+    # Placeholder: {town}
+    deleted: "&aTown &f{town} &ahas been deleted."
+    spawn-not-found: "&cThat town has no spawn set."
+    spawn-removed: "&aTown spawn removed."
+    spawn-success: "&aTown spawn updated."
+    teleported: "&aTeleported to the town spawn."
+  member:
+    player-not-found: "&cPlayer not found."
+    not-in-town: "&cThat player is not in the town."
+    already-in-town: "&cThat player is already in a town."
+    # Placeholders: {player}, {town}
+    added: "&aAdded &f{player} &ato town &f{town}&a."
+    # Placeholders: {player}, {town}
+    removed: "&aRemoved &f{player} &afrom town &f{town}&a."
+    cannot-remove-mayor: "&cYou cannot remove the Mayor."
+    # Placeholders: {player}, {town}
+    set-mayor: "&aSet &f{player} &aas mayor of &f{town}&a."
+  raid:
+    # Placeholders: {player}, {amount}
+    lockpick-given: "&aGiven &f{amount}x &aOzTowns raid pick to &f{player}&a."
+    # Placeholder: {amount}
+    lockpick-received: "&aYou received &f{amount}x &aOzTowns raid pick."

@@ -1,0 +1,52 @@
+# OzTowns - Bank GUI
+# Controls /townbank gui layout and click behavior.
+
+bank_gui:
+  # Inventory title.
+  title: "&8Town Bank"
+  # Inventory size (must be multiple of 9).
+  size: 27
+  filler:
+    # If true, fills all empty slots with the filler item.
+    fill: true
+    # Filler item material (Bukkit Material enum).
+    material: "BLACK_STAINED_GLASS_PANE"
+    # Filler item display name.
+    name: " "
+  items:
+    deposit:
+      # Slot index (0-based).
+      slot: 11
+      # Bukkit Material enum.
+      material: "PLAYER_HEAD"
+      # Base64 texture used if material is PLAYER_HEAD.
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjE4NjVkZTFhNzdkYTg2Zjg0MjNhZjRiYTQ0MTAxMzk3NDI5ZDIwMGJlNDIwNDU2NTEyMTJhNjE1Y2Y3NTRmMiJ9fX0="
+      # Display name shown in GUI.
+      name: "&a&lDeposit"
+      # Lore lines.
+      lore:
+        - "&7Click to deposit money"
+        - "&7into the town bank."
+      # Command run on click (without leading slash).
+      # Special handling: "townbank deposit" opens amount prompt.
+      command: "townbank deposit"
+    withdraw:
+      slot: 13
+      material: "PLAYER_HEAD"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDQ2NzUxNThjMDc2N2VlNTA4YzUyZDUyNDI2Y2VmM2EyYzJiMjliN2U0ODdjOTI5NTNhMzgyM2Y1NjFkMDZhZiJ9fX0="
+      name: "&c&lWithdraw"
+      lore:
+        - "&7Click to withdraw money"
+        - "&7from the town bank."
+      # Special handling: "townbank withdraw" opens amount prompt.
+      command: "townbank withdraw"
+    balance:
+      slot: 15
+      material: "PLAYER_HEAD"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDRjMDAxNjQyMzhkOGFkOTlhZmFkNzkwYzMwNTBmZjllZmY0MTBlMmQ0YTNmZTg1NjAwMzg5ZGNiODE4YTg0OSJ9fX0="
+      name: "&6&lBalance"
+      # Supported placeholders: {balance}, {upkeep}
+      lore:
+        - "&7Current Balance: &e${balance}"
+        - "&7Current Upkeep: &c${upkeep}"
+      command: "townbank balance"

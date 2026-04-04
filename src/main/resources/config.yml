@@ -1,0 +1,52 @@
+# OzTowns 2.0 - Global/Core Configuration
+# This file controls plugin-wide systems that affect all other modules.
+
+debug:
+  # If true, prints extra troubleshooting logs to console.
+  enabled: false
+
+features:
+  # If false, /towns command systems are effectively disabled.
+  towns: true
+  # If false, raid logic is disabled even if raid-config.yml has raid.enabled=true.
+  raids: true
+  # If false, scheduled upkeep processing does not run.
+  upkeep: true
+  # If false, town bank command features are disabled.
+  banks: true
+  # If false, hologram integrations are disabled globally.
+  holograms: true
+
+storage:
+  # Database backend selection.
+  # Valid values:
+  # - MYSQL  = uses the credentials in storage.mysql
+  # - SQLITE = uses the local file in storage.sqlite.file
+  type: sqlite
+  mysql:
+    # MySQL server hostname or IP.
+    host: localhost
+    # MySQL server port.
+    port: 3306
+    # MySQL database/schema name.
+    database: minecraft
+    # MySQL username.
+    username: root
+    # MySQL password.
+    password: password
+  sqlite:
+    # SQLite file path relative to the plugin data folder.
+    file: towns.db
+
+economy:
+  # Economy provider implementation.
+  # Valid values:
+  # - ozanarchy-economy (also accepts "ozanarchy")
+  # - vault
+  provider: ozanarchy-economy
+
+cache:
+  # Shared cache lifetime in seconds for DB-heavy lookups.
+  # Higher values reduce DB load but may delay visible updates slightly.
+  ttl-seconds: 15
+
