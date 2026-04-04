@@ -1,143 +1,166 @@
-# OzTowns
+# OzTowns 2.0
 
-A Spigot/Paper towns plugin for **Minecraft 1.21.11** with chunk claims, town roles, bank/upkeep, spawn management, GUI menus, and optional PlaceholderAPI/DecentHolograms/Vault integration.
+OzTowns is a Paper town-management plugin focused on town ownership, land claims, banking/upkeep, tier progression, and raid gameplay.
+This branch reflects the 2.0 direction: modular services, split feature configs, and state-aware systems.
 
 ## Features
 
-- Town lifecycle: create, rename, set mayor, leave, abandon
-- Chunk claiming with adjacency checks and unclaim restrictions
-- Role system: mayor/officer/member + member permission nodes
-- Town bank with deposits, withdrawals, balance, upkeep billing
-- Spawn system with delay, cooldown, and automatic reminders/deletion for towns without spawn
-- Raiding system: lockpick enemy town Lodestone, survive raid timer, and take town rewards
-- GUI support for main menu, bank, members, and member permissions
-- Chunk visualizer particles for own/enemy/wilderness claims
-- Optional town chat command (`/tm`)
-- Optional PlaceholderAPI placeholders and DecentHolograms spawn holograms
+- Town lifecycle: create, rename, delete/abandon, set spawn, town teleport.
+- Chunk claiming: claim/unclaim with adjacency rules and world blacklist support.
+- Member management: invites, join/deny flow, roles (Mayor/Officer/Member), transfer mayor.
+- Town permissions: per-member town permission nodes (GUI + backend checks).
+- Bank system: deposits, withdrawals, balance, optional bank cap scaling by tier.
+- Upkeep system: scheduled payments, inactivity checks, state transitions, optional decay cleanup.
+- Tier system: default tier, max tier, progress-driven upgrades, optional downgrades, perk modifiers.
+- Raids 2.0 flow: OzTowns raid lockpick item + GUI minigame entry + state-based raid behavior.
+- GUI menus: main menu, members, member permissions, and bank GUI.
+- Optional integrations: PlaceholderAPI placeholder expansion and DecentHolograms spawn holograms.
+- Multi-file configuration + message packs under dedicated folders.
 
-## Raiding
+## 2.0 Architecture Direction
 
-- Raids are triggered by successfully lockpicking a **town spawn Lodestone**.
-- Raiders must survive for **60 seconds** to complete the raid.
-- Raid fails if the raider takes damage, dies, or disconnects.
-- On success:
-  - If the raider is in a town, raided bank funds transfer to the raider town bank.
-  - If the raider is not in a town, funds are paid directly to the player.
-  - The raided town is deleted (claims, members, bank, and town data).
-- Players cannot raid their own town Lodestone.
-- Raider and defenders get raid bossbars (`bossbar.raid.*` in `config.yml`).
+OzTowns 2.0 is organized around feature services and config managers rather than one monolithic handler.
+Core examples in current code:
+
+- `TownTierService` + `TownTierPerkService`
+- `UpkeepService` + upkeep helper services/repositories
+- `RaidService` + `RaidConfigManager` + minigame service/session types
+- Dedicated config handlers for main, town, upkeep, tiers, holograms, protection, raid, and GUI
 
 ## Requirements
 
-- Java **21**
-- Spigot/Paper API **1.21.11**
-- Storage backend:
-  - MySQL (when `storage.type: mysql`), or
-  - SQLite (when `storage.type: sqlite`)
-- Economy backend (pick one):
-  - `ozanarchy-economy` plugin (when `economy-plugin: ozanarchy-economy`) (default), or
-  - `Vault` plugin (when `economy-plugin: vault`) plus any Vault-compatible economy plugin
+- Java: 21
+- Server API: Paper/Spigot `1.21.x` (`api-version: 1.21`, built against `1.21.11-R0.1-SNAPSHOT`)
+- Database backends:
+  - SQLite (default)
+  - MySQL
+- Economy provider (configurable in `config.yml`):
+  - `ozanarchy-economy`
+  - Vault
 - Optional plugins:
-  - `OminousChestLock` (enables raiding lockpick integration)
-  - `PlaceholderAPI`
-  - `DecentHolograms`
+  - PlaceholderAPI
+  - DecentHolograms
 
 ## Installation
 
-1. Build the plugin jar (or use your release jar).
-2. Put the jar in your server `plugins/` folder.
-3. Ensure required dependencies are installed.
-4. Start the server once to generate configs.
-5. Edit `plugins/ozanarchy-towns/config.yml` with your MySQL credentials.
-6. Restart server.
+1. Build the plugin jar (or use a built release jar).
+2. Put `OzTowns-2.0.jar` into your server `plugins/` folder.
+3. Start the server once to generate configs.
+4. Configure files in `plugins/OzTowns/`.
+5. Restart (or use admin reload command).
 
-## Build (Maven)
+## Configuration Overview
 
-```bash
-mvn clean package
-```
+Current config layout in this branch:
 
-Outputs are created in `target/`.
+- `config.yml`: global toggles (`features.*`), storage, economy provider, cache settings.
+- `town-config.yml`: claim cost/rules, spawn settings, town chat, member limits, visualizer.
+- `protection-config.yml`: claim protection rules and bypass options.
+- `upkeep.yml`: upkeep intervals/costs, activity checks, state thresholds, decay, tier integration.
+- `tiers.yml`: tier definitions, progression thresholds, global perk caps, per-tier perk bonuses.
+- `raid-config.yml`: raid entry item, minigame, state behavior, cooldown, payout, recipe.
+- `holograms.yml`: DecentHolograms spawn-hologram rendering settings.
+- `gui/`: GUI layout files (`main.yml`, `members.yml`, `permissions.yml`, `bank.yml`).
+- `messages/`: split message files (`general.yml`, `town.yml`, `raid.yml`, `bank.yml`, `upkeep.yml`, `admin.yml`, `help.yml`).
 
 ## Commands
+
+Primary commands from `plugin.yml`:
 
 - `/towns` (`/town`, `/oztowns`, `/towny`)
 - `/townbank` (`/tbank`, `/townsbank`)
 - `/townadmin` (`/tadmin`)
-- `/tm <message>`
+- `/tm`
 
-Use `/towns help`, `/townbank help`, and `/townadmin help` in-game for detailed subcommands.
+Common `/towns` subcommands:
+
+- `create`, `rename`, `claim`, `unclaim`
+- `setspawn`, `spawn`
+- `add|invite`, `accept`, `deny`, `remove`
+- `promote`, `demote`, `setmayor`, `leave`
+- `members`, `visualizer|chunks`, `abandon confirm`
+
+Common `/townbank` subcommands:
+
+- `deposit`, `withdraw`, `balance|bal`, `gui`
+
+Common `/townadmin` subcommands:
+
+- `reload`, `delete`, `setspawn`, `removespawn`, `spawn`
+- `add`, `remove`, `setmayor`, `givelockpick`
 
 ## Permissions
 
-Main:
+Main permission nodes (from `plugin.yml`):
 
-- `oztowns.commands`
-- `oztowns.commands.bank`
+- `oztowns.commands` (+ granular `oztowns.commands.*` nodes)
+- `oztowns.commands.bank` (+ `deposit`, `withdraw`, `balance`, `help`)
 - `oztowns.admin`
 - `oztowns.admin.protectionbypass`
 
-Town command nodes:
+## Raids (Current 2.0 Behavior)
 
-- `oztowns.commands.create`
-- `oztowns.commands.rename`
-- `oztowns.commands.setspawn`
-- `oztowns.commands.spawn`
-- `oztowns.commands.claim`
-- `oztowns.commands.unclaim`
-- `oztowns.commands.abandon`
-- `oztowns.commands.add`
-- `oztowns.commands.remove`
-- `oztowns.commands.promote`
-- `oztowns.commands.demote`
-- `oztowns.commands.leave`
-- `oztowns.commands.members`
-- `oztowns.commands.transfer`
-- `oztowns.commands.visualizer`
+Raid entry is OzTowns-owned in current code:
 
-Bank nodes:
+- Player right-clicks a town spawn Lodestone with a configured OzTowns raid lockpick item.
+- Optional GUI reaction-timing minigame runs (`raid.minigame.*`).
+- On success, raid continues into timer/payout flow; on fail/timeout/cancel, attempt ends.
 
-- `oztowns.commands.bank.deposit`
-- `oztowns.commands.bank.withdraw`
-- `oztowns.commands.bank.balance`
-- `oztowns.commands.bank.help`
+State-aware behavior is config-driven via `raid.state-behavior.<STATE>` and uses upkeep state:
 
-## Configuration
+- States: `ACTIVE`, `OVERDUE`, `NEGLECTED`, `ABANDONED`, `DECAYING`
+- Per-state controls: mode (`NORMAL`/`CLEANUP`), timer, alerts, payout mode/percent, delete-on-success.
+- `DECAYING` defaults to cleanup-style flow.
 
-Primary config: `src/main/resources/config.yml`
+Other raid controls currently present:
 
-Important sections:
+- Per-town raid cooldown (persisted in DB)
+- Fail-on-damage / death / disconnect toggles
+- Optional lockpick crafting recipe
+- Tier-based minigame difficulty overrides (`TIER_1` -> `TIER_5`)
 
-- `storage.type` (`mysql` or `sqlite`)
-- `mysql.*` MySQL connection (when using MySQL)
-- `sqlite.file` SQLite DB filename in the plugin data folder (when using SQLite)
-- `economy-plugin` economy backend (`ozanarchy-economy` or `vault`)
-- `townmessages` and `townusercolor`
-- `spawn-reminder.*`
-- `town-creation-command`
-- `spawn-delay`
-- `cache.ttl-seconds`
-- `towns.*` cost/upkeep values
-- `unclaimable-worlds`
-- `visualizer.*`
-- `blacklisted-names`
+## Tiers
 
-Other configs:
+Towns have a tier key + progress persisted in DB (`towns.tier`, `tier_progress`, `tier_streak`).
 
-- `messages.yml` - all user-facing messages/help text
-- `gui.yml` - GUI layouts/items
-- `holograms.yml` - DecentHolograms integration
+Current behavior:
 
-## Placeholder / Hologram Integration
+- New towns start at `tiers.default-tier`.
+- Upkeep success can add tier progress (configurable).
+- Automatic upgrades are processed by `TownTierService` when thresholds are met.
+- Progress carry-over is supported (extra progress rolls into next tier).
+- Upgrades are capped by `tiers.max-tier`.
 
-- PlaceholderAPI: auto-registers expansion when plugin is present.
-- DecentHolograms: town spawn holograms update when enabled in config.
+Tier perks currently wired into gameplay:
 
-## Notes
+- Claim cost discount
+- Upkeep cost modifier
+- Bank cap bonus
+- Claim cap bonus (with global base cap + per-tier bonus model)
 
-- This plugin persists data in MySQL and creates required tables on startup.
-- Keep `blacklisted-names` aligned with your community moderation policy.
+## Upkeep
+
+Upkeep runs on a scheduler and processes town snapshots each cycle.
+
+Current behavior includes:
+
+- Optional auto-pay from town bank
+- Unpaid-cycle + inactivity tracking
+- State progression: `ACTIVE -> OVERDUE -> NEGLECTED -> ABANDONED -> DECAYING`
+- Optional decay actions (claim decay and eventual town removal)
+- Tier integration (progress gain/loss + optional downgrade rules)
+
+## Developer Notes
+
+- Build command:
+  - `mvn -DskipTests package`
+- Main package root:
+  - `src/main/java/net/ozanarchy/towns/`
+- Resources/config root:
+  - `src/main/resources/`
+- This branch is the active 2.0 rework direction; expect iterative cleanup and tuning around modular services/configs.
 
 ## License
 
-See `LICENESE` file
+No `LICENSE` file is currently present in this repository snapshot.
+Add one at repository root before publishing if you want explicit usage/redistribution terms.
